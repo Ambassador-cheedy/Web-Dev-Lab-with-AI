@@ -11,7 +11,7 @@ python3 -m http.server 8000   # then open http://localhost:8000
 ```
 
 ## What's inside
-- `index.html`: all content (hero, market opportunity, competitor matrix, research, revenue model, three strategic moves, 90-day plan, risk, sign-up CTA)
+- `index.html`: all content (hero, market opportunity, competitor matrix, research, revenue model, three strategic moves, 90-day plan, risk, platform requirements, client discovery questions, recommendations/risks/dependencies, sign-up CTA)
 - `css/styles.css`: design tokens, layout and responsive rules
 - `js/main.js`: motion and interactions
 - Libraries load from CDNs: GSAP 3.12.5 + ScrollTrigger and Chart.js 4.4.1 (cdnjs), Lenis 1.1.13 (jsDelivr)
@@ -23,6 +23,8 @@ python3 -m http.server 8000   # then open http://localhost:8000
 - A cinematic image frame that opens as you scroll
 - A sticky image that swaps as each "three forces" argument scrolls past
 - Pinned horizontal scroll through the 90-day plan with a live day counter
+- Requirement cards whose colour bars draw in and whose lists cascade on scroll
+- Tabbed recommendations, risks and dependencies with a sliding indicator (arrow keys work too)
 - A magnetic cursor and buttons on desktop
 - `prefers-reduced-motion` is respected: animation is skipped and all content shows immediately
 

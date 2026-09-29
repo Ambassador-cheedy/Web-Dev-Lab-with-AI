@@ -34,6 +34,7 @@
     <a href="#research" data-scroll>Research</a>
     <a href="#model" data-scroll>Revenue</a>
     <a href="#plan" data-scroll>90-Day Plan</a>
+    <a href="#requirements" data-scroll>Requirements</a>
   </nav>
   <a href="#launch" class="btn btn--sm btn--gold magnetic" data-scroll><span>Join the launch</span></a>
   <button class="nav__burger" aria-label="Open menu" aria-expanded="false"><i></i><i></i></button>
@@ -45,6 +46,7 @@
   <a href="#research" data-scroll>Research</a>
   <a href="#model" data-scroll>Revenue</a>
   <a href="#plan" data-scroll>90-Day Plan</a>
+  <a href="#requirements" data-scroll>Requirements</a>
   <a href="#launch" data-scroll>Join the launch</a>
 </div>
 
@@ -415,6 +417,196 @@
           <li>Seller trust follows the first 100 mechanics who post and get buyers</li>
         </ol>
       </article>
+    </div>
+  </section>
+
+  <!-- ═════════ 04 REQUIREMENTS ═════════ -->
+  <section class="section" id="requirements">
+    <div class="container">
+      <div class="section__head">
+        <span class="section__num">04</span>
+        <div>
+          <p class="eyebrow">Platform requirements</p>
+          <h2 class="title split">What the platform must do, <span class="hl">and for whom.</span></h2>
+          <p class="lead reveal-up">Functional requirements drawn from everyone who will use it: buyers, sellers, mechanics and admins.</p>
+        </div>
+      </div>
+
+      <div class="req-summary reveal-up">
+        <div class="req-summary__num"><span class="count" data-to="24">0</span><small>functional requirements</small></div>
+        <ul class="roles" aria-label="Who the platform serves">
+          <li>Buyers</li><li>Sellers</li><li>Mechanics</li><li>UK sellers</li><li>Admins</li>
+        </ul>
+      </div>
+
+      <div class="reqs">
+        <article class="req tilt" style="--c: var(--accent-l)">
+          <div class="req__top">
+            <span class="req__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg></span>
+            <span class="req__count">FR-01 to FR-06</span>
+          </div>
+          <h3>User management</h3>
+          <ul class="req__list">
+            <li><code>FR-01</code>Buyer, seller and mechanic registration</li>
+            <li><code>FR-02</code>Mobile number verification (OTP)</li>
+            <li><code>FR-03</code>Seller identity verification (NIN / documents)</li>
+            <li><code>FR-04</code>UK seller onboarding portal</li>
+            <li><code>FR-05</code>Role-based access for the admin dashboard</li>
+            <li><code>FR-06</code>Profiles with trust score and reviews</li>
+          </ul>
+        </article>
+        <article class="req tilt" style="--c: var(--gold)">
+          <div class="req__top">
+            <span class="req__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l5 5"/></svg></span>
+            <span class="req__count">FR-07 to FR-12</span>
+          </div>
+          <h3>Listings and search</h3>
+          <ul class="req__list">
+            <li><code>FR-07</code>Part listings with vehicle compatibility</li>
+            <li><code>FR-08</code>Search by make, model, year and part type</li>
+            <li><code>FR-09</code>Image upload, at least 3 photos per listing</li>
+            <li><code>FR-10</code>Stock quantity and condition tags</li>
+            <li><code>FR-11</code>Featured and boosted listing placement</li>
+            <li><code>FR-12</code>Saved searches and alerts</li>
+          </ul>
+        </article>
+        <article class="req tilt" style="--c: var(--green)">
+          <div class="req__top">
+            <span class="req__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="13" rx="2.5"/><path d="M3 10h18M16 14.5h2"/></svg></span>
+            <span class="req__count">FR-13 to FR-18</span>
+          </div>
+          <h3>Payments and orders</h3>
+          <ul class="req__list">
+            <li><code>FR-13</code>MTN and Moov Mobile Money integration</li>
+            <li><code>FR-14</code>XOF-only transactions (no USD or GBP)</li>
+            <li><code>FR-15</code>Order creation, confirmation and receipt</li>
+            <li><code>FR-16</code>Escrow held until the buyer confirms delivery</li>
+            <li><code>FR-17</code>Refund and dispute workflow</li>
+            <li><code>FR-18</code>Transaction history for both parties</li>
+          </ul>
+        </article>
+        <article class="req tilt" style="--c: var(--accent)">
+          <div class="req__top">
+            <span class="req__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v5.5c0 4.4-3 8-7 9.5-4-1.5-7-5.1-7-9.5V6z"/><path d="M9 12l2 2 4-4"/></svg></span>
+            <span class="req__count">FR-19 to FR-24</span>
+          </div>
+          <h3>Admin and trust</h3>
+          <ul class="req__list">
+            <li><code>FR-19</code>Listing moderation and takedown tools</li>
+            <li><code>FR-20</code>Reported user management</li>
+            <li><code>FR-21</code>Review and rating arbitration</li>
+            <li><code>FR-22</code>Analytics: GMV, listings, active users</li>
+            <li><code>FR-23</code>Push notifications with SMS fallback</li>
+            <li><code>FR-24</code>Content policy enforcement dashboard</li>
+          </ul>
+        </article>
+      </div>
+      <p class="fineprint reveal-up">FR = functional requirement. Every requirement is subject to client validation in the discovery phase.</p>
+    </div>
+  </section>
+
+  <!-- ═════════ 05 DISCOVERY ═════════ -->
+  <section class="section section--alt" id="discovery">
+    <div class="container">
+      <div class="section__head">
+        <span class="section__num">05</span>
+        <div>
+          <p class="eyebrow">Client discovery · Validate before scoping</p>
+          <h2 class="title split">Two gaps the client <span class="hg">must answer.</span></h2>
+          <p class="lead reveal-up">These unknowns shape the architecture, the pricing strategy and the go-to-market plan. Requirements are not final until they are answered.</p>
+        </div>
+      </div>
+
+      <div class="qs">
+        <article class="q" style="--c: var(--accent-l)">
+          <span class="q__big" aria-hidden="true">Q1</span>
+          <p class="q__tag">Market structure</p>
+          <h3>Why are there no major players, when Benin is one of West Africa's largest hubs for used cars imported from Europe?</h3>
+          <ul class="q__list">
+            <li><i aria-hidden="true">?</i>Is the gap regulatory? Do import or resale laws block online commerce?</li>
+            <li><i aria-hidden="true">?</i>Is it infrastructure? Poor logistics and unreliable delivery networks?</li>
+            <li><i aria-hidden="true">?</i>Is it trust? Do buyers prefer to inspect and pay cash at Dantokpa market?</li>
+            <li><i aria-hidden="true">?</i>Has anyone tried and failed? If so, what killed it?</li>
+          </ul>
+          <p class="q__answer"><i aria-hidden="true">→</i>The answer decides whether we build escrow, physical pickup or hybrid fulfilment.</p>
+          <p class="q__impl"><span>Implication</span>Defines the fulfilment model and trust architecture</p>
+        </article>
+        <article class="q" style="--c: var(--gold)">
+          <span class="q__big" aria-hidden="true">Q2</span>
+          <p class="q__tag">Purchasing power</p>
+          <h3>What can mechanics, private car owners and fleet managers in Benin really afford to spend?</h3>
+          <ul class="q__list">
+            <li><i aria-hidden="true">?</i>What does a Cotonou mechanic earn in an average month?</li>
+            <li><i aria-hidden="true">?</i>What is the typical spend on a single parts purchase, in XOF?</li>
+            <li><i aria-hidden="true">?</i>Do buyers compare prices, or pay the first fair price they see?</li>
+            <li><i aria-hidden="true">?</i>Can sellers absorb 3,500 XOF a month, or does free matter more?</li>
+          </ul>
+          <p class="q__answer"><i aria-hidden="true">→</i>The answer decides whether Year 1 is led by subscriptions or by listing fees.</p>
+          <p class="q__impl"><span>Implication</span>Sets the subscription price and the free-tier conversion threshold</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═════════ 06 ANALYSIS ═════════ -->
+  <section class="section" id="analysis">
+    <div class="container">
+      <div class="section__head">
+        <span class="section__num">06</span>
+        <div>
+          <p class="eyebrow">Requirements analysis · What must be true</p>
+          <h2 class="title split">Recommendations, risks <span class="hl">and dependencies.</span></h2>
+          <p class="lead reveal-up">Meeting these requirements depends on a few things going right, and two blockers that can sink the platform if they're ignored.</p>
+        </div>
+      </div>
+
+      <div class="rrd reveal-up">
+        <div class="tabs" role="tablist" aria-label="Requirements analysis">
+          <button class="tab" role="tab" id="tab-recs" aria-controls="panel-recs" aria-selected="true" style="--c: var(--accent-l)">Recommendations <span>4</span></button>
+          <button class="tab" role="tab" id="tab-risks" aria-controls="panel-risks" aria-selected="false" tabindex="-1" style="--c: var(--red)">Risks <span>5</span></button>
+          <button class="tab" role="tab" id="tab-deps" aria-controls="panel-deps" aria-selected="false" tabindex="-1" style="--c: var(--gold)">Dependencies <span>5</span></button>
+          <i class="tabs__ink" aria-hidden="true"></i>
+        </div>
+
+        <div class="tabpanel" id="panel-recs" role="tabpanel" aria-labelledby="tab-recs">
+          <div class="cards cards--2">
+            <article class="card"><span class="card__n">01</span><h3>Mobile-first, French-language UI</h3><p>Build in French from Day 1: all copy, error messages and onboarding. English is secondary. UK sellers need it; local buyers don't.</p></article>
+            <article class="card"><span class="card__n">02</span><h3>Escrow before ratings</h3><p>Trust comes from protected transactions, not stars. Launch with MTN/Moov escrow as the core safety net. Ratings can follow in v1.1.</p></article>
+            <article class="card"><span class="card__n">03</span><h3>Seed with mechanics, not buyers</h3><p>Supply creates demand here. Recruit 100 Cotonou mechanics as verified sellers before public launch. An empty marketplace repels buyers for good.</p></article>
+            <article class="card"><span class="card__n">04</span><h3>Phase in UK sellers</h3><p>UK parts are the differentiated supply. Start with 20–30 vetted UK dealers shipping used OEM parts. Quality over volume in Year 1.</p></article>
+          </div>
+        </div>
+
+        <div class="tabpanel" id="panel-risks" role="tabpanel" aria-labelledby="tab-risks" hidden>
+          <div class="sev-summary" aria-label="Risk severity: 2 high, 2 medium, 1 low">
+            <div class="sev-bar"><i class="sev--high" style="flex:2"></i><i class="sev--med" style="flex:2"></i><i class="sev--low" style="flex:1"></i></div>
+            <ul><li><b class="sev--high"></b>2 high</li><li><b class="sev--med"></b>2 medium</li><li><b class="sev--low"></b>1 low</li></ul>
+          </div>
+          <div class="cards">
+            <article class="card card--risk" data-sev="high"><div class="card__head"><span class="badge sev--high">High</span><h3>Mobile Money API delay</h3></div><p>MTN/Moov approval takes 6–10 weeks. If the application isn't filed on Day 1, the platform launches without payments and becomes a classifieds board, not a marketplace.</p></article>
+            <article class="card card--risk" data-sev="high"><div class="card__head"><span class="badge sev--high">High</span><h3>No legal entity in Benin</h3></div><p>Mobile Money and commercial contracts both require a registered Beninese entity. This is a blocker, not a risk to manage around.</p></article>
+            <article class="card card--risk" data-sev="med"><div class="card__head"><span class="badge sev--med">Medium</span><h3>Counterfeit parts liability</h3></div><p>If a fake part causes a vehicle failure, the platform faces reputational and legal exposure. Define the seller verification policy before launch.</p></article>
+            <article class="card card--risk" data-sev="med"><div class="card__head"><span class="badge sev--med">Medium</span><h3>Low digital literacy</h3></div><p>With 28% internet penetration, mechanics need in-person onboarding support. A purely digital sign-up flow will fail with the core seller segment.</p></article>
+            <article class="card card--risk" data-sev="low"><div class="card__head"><span class="badge sev--low">Low</span><h3>Currency volatility (XOF/GBP)</h3></div><p>XOF is pegged to the euro, which is stable. UK sellers pricing in GBP still need FX clarity, so set a pricing policy before launch.</p></article>
+          </div>
+        </div>
+
+        <div class="tabpanel" id="panel-deps" role="tabpanel" aria-labelledby="tab-deps" hidden>
+          <div class="cards">
+            <article class="card"><div class="card__head"><span class="badge dep--ext">External</span><h3>MTN Bénin and Moov Africa APIs</h3></div><p>Every payment feature depends on approved developer access to both networks. There is no workaround. This is a hard dependency.</p></article>
+            <article class="card"><div class="card__head"><span class="badge dep--ext">External</span><h3>Beninese legal registration</h3></div><p>RCCM registration and a BCEAO-compliant local bank account come before any commercial activity. Allow 3–6 weeks with a Cotonou lawyer.</p></article>
+            <article class="card"><div class="card__head"><span class="badge dep--int">Internal</span><h3>French content and support</h3></div><p>UI strings, push notifications, SMS templates and customer support all need French. Translation must be finished before the development freeze.</p></article>
+            <article class="card"><div class="card__head"><span class="badge dep--int">Internal</span><h3>Vehicle compatibility database</h3></div><p>Search by vehicle needs data on the makes common in Benin: Toyota, Peugeot, Renault and Mitsubishi dominate. License it or build it.</p></article>
+            <article class="card"><div class="card__head"><span class="badge dep--partner">Partner</span><h3>UK seller recruitment pipeline</h3></div><p>UK supply is the key differentiator. Business development with UK dealers has to start before the platform has inventory to show buyers.</p></article>
+          </div>
+        </div>
+      </div>
+
+      <div class="next reveal-up">
+        <span class="next__star" aria-hidden="true">★</span>
+        <p><strong>Next step:</strong> schedule a 60-minute discovery call with the client to validate Q1 and Q2 before finalising the requirements baseline.</p>
+        <a href="#discovery" class="btn btn--ghost btn--sm magnetic" data-scroll><span>Review Q1 and Q2</span></a>
+      </div>
     </div>
   </section>
 

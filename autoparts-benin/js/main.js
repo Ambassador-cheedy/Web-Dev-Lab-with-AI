@@ -162,7 +162,7 @@
       gsap.set('.nav__progress i', { scaleX: self.progress });
     }
   });
-  ['opportunity', 'research', 'model', 'plan'].forEach(id => {
+  ['opportunity', 'research', 'model', 'plan', 'requirements'].forEach(id => {
     const link = $(`.nav__links a[href="#${id}"]`);
     ScrollTrigger.create({ trigger: `#${id}`, start: 'top 50%', end: 'bottom 50%', onToggle: s => link.classList.toggle('is-active', s.isActive) });
   });
@@ -253,6 +253,24 @@
   mm.add('(max-width: 800px)', () => {
     gsap.to('.plan__rail i', { scaleX: 1, ease: 'none', scrollTrigger: { trigger: '.plan', start: 'top 60%', end: 'bottom bottom', scrub: true, onUpdate: s => (dayEl.textContent = 'Day ' + Math.round(s.progress * 90)) } });
     $$('.phase').forEach(p => gsap.from(p, { y: 60, opacity: 0, duration: 1, ease: 'expo.out', scrollTrigger: { trigger: p, start: 'top 88%' } }));
+  });
+
+  /* Requirements */
+  gsap.from('.roles li', { y: 20, opacity: 0, stagger: .06, duration: .8, ease: 'expo.out', scrollTrigger: { trigger: '.req-summary', start: 'top 85%' } });
+  gsap.from('.req', { y: 90, opacity: 0, duration: 1.3, stagger: .1, ease: 'expo.out', scrollTrigger: { trigger: '.reqs', start: 'top 82%' } });
+  $$('.req').forEach((r, i) => {
+    const st = { trigger: '.reqs', start: 'top 82%' };
+    gsap.fromTo(r, { '--bar': 0 }, { '--bar': 1, duration: 1.2, delay: .3 + i * .1, ease: 'expo.inOut', scrollTrigger: st });
+    gsap.from($$('.req__list li', r), { x: -16, opacity: 0, duration: .8, stagger: .05, delay: .5 + i * .1, ease: 'expo.out', scrollTrigger: st });
+  });
+
+  /* Discovery questions */
+  $$('.q').forEach((q, i) => {
+    const st = { trigger: q, start: 'top 82%' };
+    gsap.from(q, { y: 90, opacity: 0, duration: 1.3, delay: i * .1, ease: 'expo.out', scrollTrigger: st });
+    gsap.from($('.q__big', q), { yPercent: 40, opacity: 0, duration: 1.6, delay: .2 + i * .1, ease: 'expo.out', scrollTrigger: st });
+    gsap.from($$('.q__list li, .q__answer, .q__impl', q), { y: 20, opacity: 0, duration: .9, stagger: .07, delay: .4 + i * .1, ease: 'expo.out', scrollTrigger: st });
+    gsap.to($('.q__big', q), { yPercent: -25, ease: 'none', scrollTrigger: { trigger: q, start: 'top bottom', end: 'bottom top', scrub: true } });
   });
 
   /* Chain list */
@@ -388,6 +406,45 @@
   }
 
   function bindUI() {
+    /* Analysis tabs */
+    const tabs = $$('.tab');
+    const ink = $('.tabs__ink');
+    const placeInk = tab => {
+      ink.style.width = tab.offsetWidth + 'px';
+      ink.style.transform = `translateX(${tab.offsetLeft}px)`;
+      ink.style.setProperty('--ink', getComputedStyle(tab).getPropertyValue('--c'));
+    };
+    const selectTab = (tab, focus) => {
+      tabs.forEach(t => {
+        const on = t === tab;
+        t.setAttribute('aria-selected', on);
+        t.tabIndex = on ? 0 : -1;
+        $('#' + t.getAttribute('aria-controls')).hidden = !on;
+      });
+      placeInk(tab);
+      if (focus) tab.focus();
+      const panel = $('#' + tab.getAttribute('aria-controls'));
+      if (!reduce) {
+        gsap.fromTo($$('.card', panel), { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: .8, stagger: .06, ease: 'expo.out', overwrite: true });
+        const bars = $$('.sev-bar i', panel);
+        if (bars.length) gsap.fromTo(bars, { scaleX: 0 }, { scaleX: 1, duration: 1, stagger: .12, ease: 'expo.inOut' });
+      }
+      ScrollTrigger.refresh();
+    };
+    tabs.forEach((t, i) => {
+      t.addEventListener('click', () => selectTab(t));
+      t.addEventListener('keydown', e => {
+        const d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+        if (!d) return;
+        e.preventDefault();
+        selectTab(tabs[(i + d + tabs.length) % tabs.length], true);
+      });
+    });
+    const placeActive = () => placeInk($('.tab[aria-selected="true"]'));
+    placeActive();
+    window.addEventListener('resize', placeActive);
+    if (document.fonts) document.fonts.ready.then(placeActive);
+
     const toggle = $('.toggle');
     $$('button', toggle).forEach(b => b.addEventListener('click', () => {
       if (b.dataset.cur === currency) return;
