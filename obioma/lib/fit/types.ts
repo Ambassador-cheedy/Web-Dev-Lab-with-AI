@@ -116,8 +116,10 @@ export type ZoneResult = {
   weight: number;
   /** True when the body measurement was estimated from proportions. */
   estimated: boolean;
-  /** For length: where the hem lands, e.g. "4 cm below the knee". */
+  /** For length: where the hem lands, e.g. "falls 4 cm below the knee". */
   detail?: string;
+  /** For length: hem height from the floor and its offset from the nearest landmark (cm). */
+  hem?: { height: number; landmark: string; offset: number };
 };
 
 export type SizeResult = {
@@ -131,5 +133,7 @@ export type FitReport = {
   bestScore: number;
   sizes: SizeResult[];
   suggestMadeToMeasure: boolean;
+  /** Set when a neighbouring size scores almost as well. */
+  betweenSizes?: [string, string];
   summary: string;
 };

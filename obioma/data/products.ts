@@ -359,8 +359,8 @@ export const products: Product[] = [
       intendedHem: 'ankle',
       idealEase: {
         shoulder: { min: 2, max: 12 },
-        bust: { min: 20, max: 60 },
-        hip: { min: 14, max: 50 },
+        bust: { min: 24, max: 48 },
+        hip: { min: 16, max: 40 },
       },
       sizes: sizes({
         shoulder: [42, 43, 44, 45.5, 47, 48.5],
@@ -539,8 +539,8 @@ export const products: Product[] = [
       stretch: 0,
       intendedHem: 'ankle',
       idealEase: {
-        shoulder: { min: 15, max: 60 },
-        bust: { min: 30, max: 160 },
+        shoulder: { min: 20, max: 44 },
+        bust: { min: 40, max: 104 },
         inseam: { min: -4, max: 2 },
       },
       sizes: sizes({
