@@ -7,6 +7,7 @@ import { useMeasurements } from '@/lib/store/measurements';
 import { useConsent } from '@/lib/store/consent';
 import { useAuth } from '@/lib/auth';
 import { useOrders } from '@/lib/store/orders';
+import { useLooks } from '@/lib/store/looks';
 import { useHydrationFlag } from '@/lib/store/hydration';
 
 export function StoreHydrator() {
@@ -18,6 +19,7 @@ export function StoreHydrator() {
       useConsent.persist.rehydrate(),
       useAuth.persist.rehydrate(),
       useOrders.persist.rehydrate(),
+      useLooks.persist.rehydrate(),
     ]).finally(() => useHydrationFlag.getState().set());
   }, []);
   return null;

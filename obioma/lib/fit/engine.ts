@@ -237,7 +237,7 @@ function summarise(best: SizeResult, mtm: boolean, between?: [string, string]): 
       : best.score >= 72
         ? `Size ${best.size} fits you well${note}`
         : `Size ${best.size} is your closest fit${note}`;
-  const tail = between ? `. You are between ${between[0]} and ${between[1]}: size up for more ease.` : '.';
+  const tail = between ? `. You are between ${between[0]} and ${between[1]}: choose ${between[1]} for more ease.` : '.';
   return lead + tail;
 }
 
