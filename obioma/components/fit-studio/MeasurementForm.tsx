@@ -40,7 +40,6 @@ export function MeasurementForm({ base, unit, initial, onLive, onSave, saveLabel
     return v;
   }, [initial, unit]);
 
-  // eslint-disable-next-line react-hooks/incompatible-library -- watch() is used deliberately for live avatar updates
   const { control, handleSubmit, watch, formState } = useForm<FormValues>({
     resolver: zodResolver(measurementSchema(unit) as never) as unknown as Resolver<FormValues>,
     mode: 'onChange',
@@ -48,6 +47,7 @@ export function MeasurementForm({ base, unit, initial, onLive, onSave, saveLabel
   });
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/incompatible-library -- watch() subscription drives live avatar updates
     const sub = watch((values) => onLive(toCm(values as FormValues, unit)));
     return () => sub.unsubscribe();
   }, [watch, onLive, unit]);
