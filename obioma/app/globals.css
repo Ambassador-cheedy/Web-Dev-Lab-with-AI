@@ -1,0 +1,212 @@
+@import 'tailwindcss';
+
+/*
+ * Obioma design tokens. Every colour in the codebase comes from here.
+ * Tailwind exposes them as utilities (bg-ivory, text-obsidian, border-sand, ...),
+ * and as CSS variables (var(--color-gold)) for SVG and inline styles.
+ */
+@theme {
+  --color-obsidian: #111010;
+  --color-ivory: #f6f1e9;
+  --color-bone: #ede5d8;
+  --color-sand: #d9cbb5;
+  --color-gold: #b8925a;
+  --color-gold-light: #d4b98a;
+  --color-oxblood: #4a1420;
+  --color-stone: #8a8279;
+  /* stone-deep: secondary text that must pass AA on ivory/bone */
+  --color-stone-deep: #6b645c;
+  --color-fit-tight: #b5543c;
+  --color-fit-ideal: #5e7d5a;
+  --color-fit-loose: #5a6e8c;
+  --color-white: #ffffff;
+  --color-transparent: transparent;
+  --color-current: currentColor;
+
+  --font-serif: var(--font-cormorant), 'Cormorant Garamond', Georgia, serif;
+  --font-sans: var(--font-manrope), 'Manrope', system-ui, sans-serif;
+
+  --radius-xs: 2px;
+
+  --ease-luxe: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --text-hero: clamp(3rem, 1.6rem + 6.4vw, 7rem);
+  --text-hero--line-height: 0.95;
+  --text-hero--letter-spacing: -0.02em;
+  --text-display: clamp(2.25rem, 1.5rem + 3.4vw, 4.5rem);
+  --text-display--line-height: 1.02;
+  --text-display--letter-spacing: -0.015em;
+  --text-title: clamp(1.75rem, 1.35rem + 1.6vw, 2.75rem);
+  --text-title--line-height: 1.1;
+  --text-eyebrow: 0.6875rem;
+  --text-eyebrow--line-height: 1.4;
+  --text-eyebrow--letter-spacing: 0.18em;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+  body {
+    background: var(--color-ivory);
+    color: var(--color-obsidian);
+    font-family: var(--font-sans);
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-serif);
+    font-weight: 400;
+  }
+  ::selection {
+    background: var(--color-gold-light);
+    color: var(--color-obsidian);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 3px;
+  }
+  button,
+  [role='button'],
+  label,
+  select {
+    cursor: pointer;
+  }
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type='number'] {
+    -moz-appearance: textfield;
+  }
+}
+
+@layer components {
+  .eyebrow {
+    font-family: var(--font-sans);
+    font-size: var(--text-eyebrow);
+    line-height: var(--text-eyebrow--line-height);
+    letter-spacing: var(--text-eyebrow--letter-spacing);
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .container-luxe {
+    width: 100%;
+    max-width: 1600px;
+    margin-inline: auto;
+    padding-inline: clamp(1rem, 0.5rem + 2.5vw, 3.5rem);
+  }
+  /* Animated gold underline for text links */
+  .link-luxe {
+    background-image: linear-gradient(var(--color-gold), var(--color-gold));
+    background-size: 0% 1px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size 500ms var(--ease-luxe);
+    padding-bottom: 2px;
+  }
+  .link-luxe:hover,
+  .link-luxe:focus-visible {
+    background-size: 100% 1px;
+  }
+  .prose-luxe p + p {
+    margin-top: 1.1em;
+  }
+  .prose-luxe h2 {
+    font-size: 1.75rem;
+    margin-top: 2.5rem;
+    margin-bottom: 0.75rem;
+  }
+  .prose-luxe h3 {
+    font-size: 1.35rem;
+    margin-top: 1.75rem;
+    margin-bottom: 0.5rem;
+  }
+  .prose-luxe ul {
+    list-style: disc;
+    padding-left: 1.25rem;
+    margin-top: 0.75rem;
+  }
+  .prose-luxe li + li {
+    margin-top: 0.35rem;
+  }
+  .prose-luxe a {
+    text-decoration: underline;
+    text-decoration-color: var(--color-gold);
+    text-underline-offset: 3px;
+  }
+
+  /* Range slider, brand styled and keyboard accessible */
+  .range-luxe {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 28px;
+    background: transparent;
+  }
+  .range-luxe::-webkit-slider-runnable-track {
+    height: 1px;
+    background: var(--color-sand);
+  }
+  .range-luxe::-moz-range-track {
+    height: 1px;
+    background: var(--color-sand);
+  }
+  .range-luxe::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    margin-top: -8.5px;
+    border-radius: 50%;
+    background: var(--color-ivory);
+    border: 1px solid var(--color-obsidian);
+    transition: transform 200ms var(--ease-luxe);
+  }
+  .range-luxe::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--color-ivory);
+    border: 1px solid var(--color-obsidian);
+  }
+  .range-luxe:active::-webkit-slider-thumb {
+    transform: scale(1.2);
+    border-color: var(--color-gold);
+  }
+  .range-luxe:focus-visible {
+    outline: none;
+  }
+  .range-luxe:focus-visible::-webkit-slider-thumb {
+    box-shadow: 0 0 0 3px var(--color-gold);
+  }
+  .range-luxe:focus-visible::-moz-range-thumb {
+    box-shadow: 0 0 0 3px var(--color-gold);
+  }
+
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
