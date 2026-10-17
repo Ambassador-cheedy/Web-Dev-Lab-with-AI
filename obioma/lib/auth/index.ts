@@ -23,7 +23,11 @@ export const useAuth = create<AuthState>()(
     (set) => ({
       user: null,
       signIn: async (email, name) => {
-        const user = { email: email.trim().toLowerCase(), name, createdAt: new Date().toISOString() };
+        const user = {
+          email: email.trim().toLowerCase(),
+          name,
+          createdAt: new Date().toISOString(),
+        };
         set({ user });
         return user;
       },

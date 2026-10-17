@@ -22,11 +22,14 @@ export function InlineFitSummary({
 
   if (!profile || !report) {
     return (
-      <p className="mt-5 flex items-start gap-3 bg-bone px-4 py-3 text-sm">
-        <RulerIcon className="mt-0.5 h-4 w-4 shrink-0 text-gold" />
+      <p className="bg-bone mt-5 flex items-start gap-3 px-4 py-3 text-sm">
+        <RulerIcon className="text-gold mt-0.5 h-4 w-4 shrink-0" />
         <span>
           Not sure of your size?{' '}
-          <Link href={`/fit-studio?product=${product.slug}`} className="underline decoration-gold underline-offset-4">
+          <Link
+            href={`/fit-studio?product=${product.slug}`}
+            className="decoration-gold underline underline-offset-4"
+          >
             Try it in the Fit Studio
           </Link>{' '}
           and we will recommend one.
@@ -39,24 +42,35 @@ export function InlineFitSummary({
   const result = report.sizes.find((s) => s.size === size) ?? report.sizes[0]!;
   const chest = profile.base === 'menswear' ? 'chest' : 'bust';
   return (
-    <div className="mt-5 bg-bone px-4 py-4 text-sm" aria-live="polite">
+    <div className="bg-bone mt-5 px-4 py-4 text-sm" aria-live="polite">
       <div className="flex items-center justify-between gap-3">
         <p className="eyebrow text-stone-deep">Fit for {profile.name}</p>
         {!report.suggestMadeToMeasure && size !== report.recommendedSize && (
-          <button type="button" onClick={() => onPickSize(report.recommendedSize)} className="eyebrow link-luxe">
+          <button
+            type="button"
+            onClick={() => onPickSize(report.recommendedSize)}
+            className="eyebrow link-luxe"
+          >
             Choose {report.recommendedSize}
           </button>
         )}
       </div>
       <p className="mt-2">
         <span className="font-semibold">Size {result.size}</span>
-        {result.size === report.recommendedSize && !report.suggestMadeToMeasure && <span className="text-fit-ideal"> (recommended)</span>}:{' '}
-        {describeSize(result, chest)}.
+        {result.size === report.recommendedSize && !report.suggestMadeToMeasure && (
+          <span className="text-fit-ideal"> (recommended)</span>
+        )}
+        : {describeSize(result, chest)}.
       </p>
       {report.suggestMadeToMeasure && (
-        <p className={cn('mt-2 text-oxblood')}>No standard size fits you well; this piece would fit you best made to measure.</p>
+        <p className={cn('text-oxblood mt-2')}>
+          No standard size fits you well; this piece would fit you best made to measure.
+        </p>
       )}
-      <Link href={`/fit-studio?product=${product.slug}`} className="mt-2 inline-block text-xs underline decoration-gold underline-offset-4">
+      <Link
+        href={`/fit-studio?product=${product.slug}`}
+        className="decoration-gold mt-2 inline-block text-xs underline underline-offset-4"
+      >
         See it on your avatar
       </Link>
     </div>

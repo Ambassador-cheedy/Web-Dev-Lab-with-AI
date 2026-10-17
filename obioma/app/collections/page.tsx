@@ -5,7 +5,8 @@ import { PageIntro } from '@/components/ui/PageIntro';
 
 export const metadata: Metadata = {
   title: 'Collections',
-  description: 'Every Obioma piece: dresses, tailoring, occasion and traditional wear. Try any of them in the Fit Studio.',
+  description:
+    'Every Obioma piece: dresses, tailoring, occasion and traditional wear. Try any of them in the Fit Studio.',
   alternates: { canonical: '/collections' },
 };
 
@@ -15,9 +16,11 @@ export default async function CollectionsPage() {
     <>
       <PageIntro eyebrow="The collection" title="Every piece, considered">
         Dresses, tailoring and occasion wear, each cut for real proportions. Look for{' '}
-        <em className="font-serif text-lg">Try in Fit Studio</em> to see how a piece will sit on you.
+        <em className="font-serif text-lg">Try in Fit Studio</em> to see how a piece will sit on
+        you.
       </PageIntro>
       <div className="container-luxe pb-24">
+        <h2 className="sr-only">Pieces</h2>
         <CollectionView products={products} />
       </div>
     </>

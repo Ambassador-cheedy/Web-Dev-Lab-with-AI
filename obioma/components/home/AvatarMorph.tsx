@@ -22,7 +22,11 @@ export function AvatarMorph({ product }: { product: Product }) {
   return (
     <figure className="relative mx-auto aspect-[480/760] w-full max-w-sm">
       <SvgAvatar
-        body={{ base: 'womenswear', skinTone: TONES[i % TONES.length]!, measurements: preset.measurements }}
+        body={{
+          base: 'womenswear',
+          skinTone: TONES[i % TONES.length]!,
+          measurements: preset.measurements,
+        }}
         product={product}
         size={['M', 'S', 'M', 'XL', 'S'][i] ?? 'M'}
         colour={product.colours[i % product.colours.length]!.name}
@@ -30,7 +34,7 @@ export function AvatarMorph({ product }: { product: Product }) {
         showHeatmap={false}
         className="h-full w-full [&_line]:opacity-40"
       />
-      <figcaption className="eyebrow absolute bottom-0 left-0 text-stone-deep" aria-live="off">
+      <figcaption className="eyebrow text-stone-deep absolute bottom-0 left-0" aria-live="off">
         {preset.name} · {preset.note}
       </figcaption>
     </figure>

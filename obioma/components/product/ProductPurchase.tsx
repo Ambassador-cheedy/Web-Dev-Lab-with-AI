@@ -37,7 +37,10 @@ export function ProductPurchase({ product }: { product: Product }) {
     <div>
       <fieldset>
         <legend className="eyebrow mb-3">
-          Colour <span className="ml-2 font-normal tracking-normal normal-case text-stone-deep">{colour}</span>
+          Colour{' '}
+          <span className="text-stone-deep ml-2 font-normal tracking-normal normal-case">
+            {colour}
+          </span>
         </legend>
         <div className="flex flex-wrap gap-3">
           {product.colours.map((c) => (
@@ -48,8 +51,8 @@ export function ProductPurchase({ product }: { product: Product }) {
               aria-pressed={colour === c.name}
               aria-label={c.name}
               className={cn(
-                'h-10 w-10 rounded-full border border-sand transition-shadow duration-300',
-                colour === c.name && 'ring-1 ring-obsidian ring-offset-[3px] ring-offset-ivory',
+                'border-sand h-10 w-10 rounded-full border transition-shadow duration-300',
+                colour === c.name && 'ring-obsidian ring-offset-ivory ring-1 ring-offset-[3px]',
               )}
               style={{ background: c.hex }}
             />
@@ -61,8 +64,11 @@ export function ProductPurchase({ product }: { product: Product }) {
         <div className="mb-3 flex items-center justify-between">
           <legend className="eyebrow">Size</legend>
           {product.fitStudio.enabled && (
-            <Link href={`/fit-studio?product=${product.slug}`} className="eyebrow link-luxe inline-flex items-center gap-2">
-              <RulerIcon className="h-4 w-4 text-gold" /> Find my size
+            <Link
+              href={`/fit-studio?product=${product.slug}`}
+              className="eyebrow link-luxe inline-flex items-center gap-2"
+            >
+              <RulerIcon className="text-gold h-4 w-4" /> Find my size
             </Link>
           )}
         </div>
@@ -79,7 +85,9 @@ export function ProductPurchase({ product }: { product: Product }) {
               className={cn(
                 'min-h-12 border text-sm transition-colors duration-300',
                 sizes.length === 1 && 'col-span-6',
-                size === s ? 'border-obsidian bg-obsidian text-ivory' : 'border-sand hover:border-obsidian',
+                size === s
+                  ? 'border-obsidian bg-obsidian text-ivory'
+                  : 'border-sand hover:border-obsidian',
               )}
             >
               {s}
@@ -87,7 +95,7 @@ export function ProductPurchase({ product }: { product: Product }) {
           ))}
         </div>
         {error && (
-          <p role="alert" className="mt-2 text-sm text-fit-tight">
+          <p role="alert" className="text-fit-tight mt-2 text-sm">
             Please choose a size.
           </p>
         )}
@@ -99,7 +107,11 @@ export function ProductPurchase({ product }: { product: Product }) {
         <Button onClick={addToBag} className="flex-1">
           Add to bag · {formatPrice(product.price)}
         </Button>
-        <WishlistButton productId={product.id} productName={product.name} className="border border-sand px-4 hover:border-obsidian" />
+        <WishlistButton
+          productId={product.id}
+          productName={product.name}
+          className="border-sand hover:border-obsidian border px-4"
+        />
       </div>
 
       {product.madeToMeasure && (
@@ -107,7 +119,8 @@ export function ProductPurchase({ product }: { product: Product }) {
           href={`/made-to-measure?product=${product.slug}`}
           className={buttonClass('oxblood', 'mt-3 w-full')}
         >
-          Order made to measure{product.madeToMeasurePrice ? ` · from ${formatPrice(product.madeToMeasurePrice)}` : ''}
+          Order made to measure
+          {product.madeToMeasurePrice ? ` · from ${formatPrice(product.madeToMeasurePrice)}` : ''}
         </Link>
       )}
     </div>

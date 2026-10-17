@@ -10,9 +10,19 @@ export function BagLineItem({ line, onNavigate }: { line: BagLine; onNavigate?: 
   const setQuantity = useBag((s) => s.setQuantity);
   const remove = useBag((s) => s.remove);
   return (
-    <li className="flex gap-4 border-b border-sand py-6">
-      <Link href={`/product/${line.slug}`} onClick={onNavigate} className="relative aspect-[4/5] w-24 shrink-0 overflow-hidden bg-bone sm:w-28">
-        <EditorialImage src={line.image} alt={line.name} fill sizes="112px" className="object-cover" />
+    <li className="border-sand flex gap-4 border-b py-6">
+      <Link
+        href={`/product/${line.slug}`}
+        onClick={onNavigate}
+        className="bg-bone relative aspect-[4/5] w-24 shrink-0 overflow-hidden sm:w-28"
+      >
+        <EditorialImage
+          src={line.image}
+          alt={line.name}
+          fill
+          sizes="112px"
+          className="object-cover"
+        />
       </Link>
       <div className="flex min-w-0 flex-1 flex-col">
         <div className="flex items-start justify-between gap-3">
@@ -23,15 +33,19 @@ export function BagLineItem({ line, onNavigate }: { line: BagLine; onNavigate?: 
           </h3>
           <p className="shrink-0 text-sm tabular-nums">{formatPrice(line.price * line.quantity)}</p>
         </div>
-        <p className="mt-1 text-xs text-stone-deep">
+        <p className="text-stone-deep mt-1 text-xs">
           {line.colour} · {line.madeToMeasure ? 'Made to measure' : `Size ${line.size}`}
         </p>
         <div className="mt-auto flex items-center justify-between pt-4">
-          <div className="flex items-center border border-sand" role="group" aria-label={`Quantity of ${line.name}`}>
+          <div
+            className="border-sand flex items-center border"
+            role="group"
+            aria-label={`Quantity of ${line.name}`}
+          >
             <button
               type="button"
               onClick={() => setQuantity(line.key, line.quantity - 1)}
-              className="inline-flex h-10 w-10 items-center justify-center hover:text-gold"
+              className="hover:text-gold inline-flex h-10 w-10 items-center justify-center"
               aria-label="Decrease quantity"
             >
               <MinusIcon className="h-4 w-4" />
@@ -42,13 +56,17 @@ export function BagLineItem({ line, onNavigate }: { line: BagLine; onNavigate?: 
             <button
               type="button"
               onClick={() => setQuantity(line.key, line.quantity + 1)}
-              className="inline-flex h-10 w-10 items-center justify-center hover:text-gold"
+              className="hover:text-gold inline-flex h-10 w-10 items-center justify-center"
               aria-label="Increase quantity"
             >
               <PlusIcon className="h-4 w-4" />
             </button>
           </div>
-          <button type="button" onClick={() => remove(line.key)} className="eyebrow link-luxe min-h-10 text-stone-deep">
+          <button
+            type="button"
+            onClick={() => remove(line.key)}
+            className="eyebrow link-luxe text-stone-deep min-h-10"
+          >
             Remove
           </button>
         </div>

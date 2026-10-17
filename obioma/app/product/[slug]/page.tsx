@@ -1,7 +1,12 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { CATEGORY_LABELS, getAllProducts, getProductBySlug, getRelatedProducts } from '@/lib/catalog';
+import {
+  CATEGORY_LABELS,
+  getAllProducts,
+  getProductBySlug,
+  getRelatedProducts,
+} from '@/lib/catalog';
 import { ProductGallery } from '@/components/product/ProductGallery';
 import { ProductPurchase } from '@/components/product/ProductPurchase';
 import { SizeGuideTable } from '@/components/product/SizeGuideTable';
@@ -26,7 +31,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       title: `${product.name} · Obioma`,
       description: product.tagline,
-      images: product.images.slice(0, 1).map((url) => ({ url, width: 1200, height: 1500, alt: product.name })),
+      images: product.images
+        .slice(0, 1)
+        .map((url) => ({ url, width: 1200, height: 1500, alt: product.name })),
     },
   };
 }
@@ -64,9 +71,11 @@ export default async function ProductPage({ params }: Props) {
       />
       <div className="container-luxe pt-6 pb-24 lg:pt-10">
         <nav aria-label="Breadcrumb" className="mb-6">
-          <ol className="eyebrow flex flex-wrap items-center gap-2 text-stone-deep">
+          <ol className="eyebrow text-stone-deep flex flex-wrap items-center gap-2">
             <li>
-              <Link href="/collections" className="link-luxe">Collections</Link>
+              <Link href="/collections" className="link-luxe">
+                Collections
+              </Link>
             </li>
             <li aria-hidden="true">/</li>
             <li>
@@ -75,7 +84,9 @@ export default async function ProductPage({ params }: Props) {
               </Link>
             </li>
             <li aria-hidden="true">/</li>
-            <li aria-current="page" className="text-obsidian">{product.name}</li>
+            <li aria-current="page" className="text-obsidian">
+              {product.name}
+            </li>
           </ol>
         </nav>
 
@@ -85,19 +96,27 @@ export default async function ProductPage({ params }: Props) {
           <div className="lg:sticky lg:top-32 lg:self-start">
             <div className="flex flex-wrap gap-2">
               {product.madeToMeasure && (
-                <span className="eyebrow bg-oxblood px-2 py-1 text-[0.6rem] text-ivory">Made to measure available</span>
+                <span className="eyebrow bg-oxblood text-ivory px-2 py-1 text-[0.6rem]">
+                  Made to measure available
+                </span>
               )}
-              {product.limited && <span className="eyebrow border border-oxblood px-2 py-1 text-[0.6rem] text-oxblood">Limited</span>}
+              {product.limited && (
+                <span className="eyebrow border-oxblood text-oxblood border px-2 py-1 text-[0.6rem]">
+                  Limited
+                </span>
+              )}
             </div>
-            <h1 className="mt-4 text-title font-light">{product.name}</h1>
+            <h1 className="text-title mt-4 font-light">{product.name}</h1>
             <p className="mt-2 text-lg">{formatPrice(product.price)}</p>
-            <p className="mt-5 max-w-md font-serif text-xl leading-snug text-stone-deep italic">{product.tagline}</p>
-            <span aria-hidden="true" className="my-8 block h-px w-12 bg-gold" />
+            <p className="text-stone-deep mt-5 max-w-md font-serif text-xl leading-snug italic">
+              {product.tagline}
+            </p>
+            <span aria-hidden="true" className="bg-gold my-8 block h-px w-12" />
 
             <ProductPurchase product={product} />
 
-            <div className="mt-10 border-t border-sand">
-              <AccordionItem title="Description" defaultOpen>
+            <div className="border-sand mt-10 border-t">
+              <AccordionItem level={2} title="Description" defaultOpen>
                 <p>{product.description}</p>
                 <ul className="mt-4 list-disc space-y-1 pl-5">
                   {product.details.map((d) => (
@@ -105,7 +124,7 @@ export default async function ProductPage({ params }: Props) {
                   ))}
                 </ul>
               </AccordionItem>
-              <AccordionItem title="Fabric & care">
+              <AccordionItem level={2} title="Fabric & care">
                 <p>{product.fabric}</p>
                 <ul className="mt-4 list-disc space-y-1 pl-5">
                   {product.care.map((c) => (
@@ -113,16 +132,20 @@ export default async function ProductPage({ params }: Props) {
                   ))}
                 </ul>
               </AccordionItem>
-              <AccordionItem title="Size guide">
+              <AccordionItem level={2} title="Size guide">
                 <SizeGuideTable product={product} />
               </AccordionItem>
-              <AccordionItem title="Delivery & returns">
+              <AccordionItem level={2} title="Delivery & returns">
                 <p>
-                  Complimentary tracked UK delivery in 2–4 working days. International delivery is calculated at checkout.
-                  Return unworn pieces within 30 days. Made-to-measure pieces are made for you alone and cannot be
-                  returned, but we will alter them until they are right.
+                  Complimentary tracked UK delivery in 2–4 working days. International delivery is
+                  calculated at checkout. Return unworn pieces within 30 days. Made-to-measure
+                  pieces are made for you alone and cannot be returned, but we will alter them until
+                  they are right.
                 </p>
-                <Link href="/delivery-returns" className="mt-3 inline-block underline decoration-gold underline-offset-4">
+                <Link
+                  href="/delivery-returns"
+                  className="decoration-gold mt-3 inline-block underline underline-offset-4"
+                >
                   Delivery & returns in full
                 </Link>
               </AccordionItem>

@@ -19,12 +19,16 @@ const schema = z.object({
 
 export async function POST(req: Request) {
   const parsed = schema.safeParse(await req.json().catch(() => null));
-  if (!parsed.success) return NextResponse.json({ error: 'Your bag could not be read.' }, { status: 400 });
+  if (!parsed.success)
+    return NextResponse.json({ error: 'Your bag could not be read.' }, { status: 400 });
   const origin = process.env.NEXT_PUBLIC_SITE_URL ?? new URL(req.url).origin;
   try {
     return NextResponse.json(await createCheckoutSession(parsed.data.items, origin));
   } catch (e) {
     console.error('checkout failed', e);
-    return NextResponse.json({ error: 'Checkout is unavailable just now. Please try again shortly.' }, { status: 500 });
+    return NextResponse.json(
+      { error: 'Checkout is unavailable just now. Please try again shortly.' },
+      { status: 500 },
+    );
   }
 }

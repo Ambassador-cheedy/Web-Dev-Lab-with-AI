@@ -55,7 +55,14 @@ export function MeasurementForm({ base, unit, initial, onLive, onSave, saveLabel
   const live = toCm(watch(), unit);
   const warnings = softWarnings(live);
   const estimates =
-    live.height && live.bust && live.hip ? estimateOptional(base, { height: live.height, bust: live.bust, waist: live.waist ?? 70, hip: live.hip }) : null;
+    live.height && live.bust && live.hip
+      ? estimateOptional(base, {
+          height: live.height,
+          bust: live.bust,
+          waist: live.waist ?? 70,
+          hip: live.hip,
+        })
+      : null;
 
   const required = MEASUREMENT_FIELDS.filter((f) => f.required);
   const optional = MEASUREMENT_FIELDS.filter((f) => !f.required);
@@ -92,18 +99,24 @@ export function MeasurementForm({ base, unit, initial, onLive, onSave, saveLabel
     >
       <fieldset>
         <legend className="eyebrow mb-1">Required</legend>
-        <div className="divide-y divide-sand/70">{required.map(renderField)}</div>
+        <div className="divide-sand/70 divide-y">{required.map(renderField)}</div>
       </fieldset>
       <fieldset className="mt-6">
         <legend className="eyebrow">Optional</legend>
-        <p className="mt-1 text-xs text-stone-deep">These improve accuracy. Empty fields are estimated from your height and build.</p>
-        <div className="divide-y divide-sand/70">{optional.map(renderField)}</div>
+        <p className="text-stone-deep mt-1 text-xs">
+          These improve accuracy. Empty fields are estimated from your height and build.
+        </p>
+        <div className="divide-sand/70 divide-y">{optional.map(renderField)}</div>
       </fieldset>
-      <Button type="submit" className="mt-6 w-full" disabled={!formState.isValid && formState.isSubmitted}>
+      <Button
+        type="submit"
+        className="mt-6 w-full"
+        disabled={!formState.isValid && formState.isSubmitted}
+      >
         {saveLabel}
       </Button>
       {formState.isSubmitted && !formState.isValid && (
-        <p role="alert" className="mt-2 text-sm text-fit-tight">
+        <p role="alert" className="text-fit-tight mt-2 text-sm">
           Please check the highlighted measurements.
         </p>
       )}

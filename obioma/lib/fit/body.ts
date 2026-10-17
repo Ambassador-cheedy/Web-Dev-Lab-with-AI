@@ -1,4 +1,11 @@
-import type { BodyBase, BodyProfile, Hemline, Landmarks, OptionalMeasurement, ResolvedBody } from './types';
+import type {
+  BodyBase,
+  BodyProfile,
+  Hemline,
+  Landmarks,
+  OptionalMeasurement,
+  ResolvedBody,
+} from './types';
 
 /**
  * Anthropometric ratios used when optional measurements are missing, and to place
@@ -55,7 +62,10 @@ const RATIOS: Record<
   },
 };
 
-export function estimateOptional(base: BodyBase, m: BodyProfile['measurements']): Record<OptionalMeasurement, number> {
+export function estimateOptional(
+  base: BodyBase,
+  m: BodyProfile['measurements'],
+): Record<OptionalMeasurement, number> {
   const r = RATIOS[base];
   return {
     shoulder: m.height * r.shoulder,

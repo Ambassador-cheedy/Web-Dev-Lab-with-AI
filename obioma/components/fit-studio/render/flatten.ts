@@ -18,7 +18,8 @@ export function flattenScene(s: Scene): number[] {
 
 export function unflattenScene(template: Scene, values: number[]): Scene {
   let i = 0;
-  const readPts = (n: number): Pt[] => Array.from({ length: n }, () => [values[i++]!, values[i++]!] as Pt);
+  const readPts = (n: number): Pt[] =>
+    Array.from({ length: n }, () => [values[i++]!, values[i++]!] as Pt);
   const shapes: Scene['shapes'] = {};
   for (const k of Object.keys(template.shapes)) shapes[k] = readPts(template.shapes[k]!.length);
   const details: Scene['details'] = {};
@@ -30,6 +31,11 @@ export function unflattenScene(template: Scene, values: number[]): Scene {
     intensity[k] = values[i++]!;
   }
   const buttons = readPts(template.buttons.length);
-  const bands = template.bands.map((b) => ({ ...b, top: values[i++]!, bottom: values[i++]!, anchorX: values[i++]! }));
+  const bands = template.bands.map((b) => ({
+    ...b,
+    top: values[i++]!,
+    bottom: values[i++]!,
+    anchorX: values[i++]!,
+  }));
   return { ...template, shapes, details, stress, intensity, buttons, bands };
 }

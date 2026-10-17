@@ -10,5 +10,7 @@ export default async function SuccessPage({ searchParams }: Props) {
   const sp = await searchParams;
   const session = sp.session_id ? await getCheckoutSession(sp.session_id).catch(() => null) : null;
   const reference = session?.id.slice(-10).toUpperCase() ?? sp.ref ?? 'OBIOMA';
-  return <OrderConfirmation reference={reference} mock={!!sp.mock} email={session?.email ?? null} />;
+  return (
+    <OrderConfirmation reference={reference} mock={!!sp.mock} email={session?.email ?? null} />
+  );
 }

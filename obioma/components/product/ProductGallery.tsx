@@ -30,8 +30,10 @@ export function ProductGallery({ images, name }: { images: string[]; name: strin
               aria-label={`Show image ${i + 1} of ${images.length}`}
               aria-current={active === i}
               className={cn(
-                'relative block aspect-[4/5] w-full overflow-hidden bg-bone transition-opacity duration-500',
-                active === i ? 'opacity-100 ring-1 ring-gold ring-offset-2 ring-offset-ivory' : 'opacity-60 hover:opacity-100',
+                'bg-bone relative block aspect-[4/5] w-full overflow-hidden transition-opacity duration-500',
+                active === i
+                  ? 'ring-gold ring-offset-ivory opacity-100 ring-1 ring-offset-2'
+                  : 'opacity-60 hover:opacity-100',
               )}
             >
               <EditorialImage src={src} alt="" fill sizes="88px" className="object-cover" />
@@ -44,7 +46,7 @@ export function ProductGallery({ images, name }: { images: string[]; name: strin
       <button
         type="button"
         onClick={() => setZoom(active)}
-        className="relative hidden aspect-[4/5] w-full cursor-zoom-in overflow-hidden bg-bone lg:block"
+        className="bg-bone relative hidden aspect-[4/5] w-full cursor-zoom-in overflow-hidden lg:block"
         aria-label={`Zoom image ${active + 1} of ${name}`}
       >
         <AnimatePresence mode="popLayout" initial={false}>
@@ -81,22 +83,34 @@ export function ProductGallery({ images, name }: { images: string[]; name: strin
               key={src + i}
               type="button"
               onClick={() => setZoom(i)}
-              className="relative aspect-[4/5] w-full shrink-0 snap-center bg-bone"
+              className="bg-bone relative aspect-[4/5] w-full shrink-0 snap-center"
               aria-label={`Zoom image ${i + 1} of ${name}`}
             >
-              <EditorialImage src={src} alt={`${name}, image ${i + 1}`} fill priority={i === 0} sizes="100vw" className="object-cover" />
+              <EditorialImage
+                src={src}
+                alt={`${name}, image ${i + 1}`}
+                fill
+                priority={i === 0}
+                sizes="100vw"
+                className="object-cover"
+              />
             </button>
           ))}
         </div>
         <div className="mt-3 flex justify-center gap-2" aria-hidden="true">
           {images.map((_, i) => (
-            <span key={i} className={cn('h-px w-6 transition-colors', i === active ? 'bg-obsidian' : 'bg-sand')} />
+            <span
+              key={i}
+              className={cn('h-px w-6 transition-colors', i === active ? 'bg-obsidian' : 'bg-sand')}
+            />
           ))}
         </div>
       </div>
 
       <AnimatePresence>
-        {zoom !== null && <Lightbox src={images[zoom]!} alt={`${name}, enlarged`} onClose={() => setZoom(null)} />}
+        {zoom !== null && (
+          <Lightbox src={images[zoom]!} alt={`${name}, enlarged`} onClose={() => setZoom(null)} />
+        )}
       </AnimatePresence>
     </div>
   );
@@ -111,7 +125,7 @@ function Lightbox({ src, alt, onClose }: { src: string; alt: string; onClose: ()
       role="dialog"
       aria-modal="true"
       aria-label="Enlarged image"
-      className="fixed inset-0 z-[60] bg-ivory"
+      className="bg-ivory fixed inset-0 z-[60]"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -122,10 +136,15 @@ function Lightbox({ src, alt, onClose }: { src: string; alt: string; onClose: ()
         onClick={onClose}
         onMouseMove={(e) => {
           const r = e.currentTarget.getBoundingClientRect();
-          setOrigin(`${((e.clientX - r.left) / r.width) * 100}% ${((e.clientY - r.top) / r.height) * 100}%`);
+          setOrigin(
+            `${((e.clientX - r.left) / r.width) * 100}% ${((e.clientY - r.top) / r.height) * 100}%`,
+          );
         }}
       >
-        <div className="absolute inset-0 transition-transform duration-300 md:scale-150" style={{ transformOrigin: origin }}>
+        <div
+          className="absolute inset-0 transition-transform duration-300 md:scale-150"
+          style={{ transformOrigin: origin }}
+        >
           <EditorialImage src={src} alt={alt} fill sizes="100vw" className="object-contain" />
         </div>
       </div>
@@ -134,7 +153,7 @@ function Lightbox({ src, alt, onClose }: { src: string; alt: string; onClose: ()
         onClick={onClose}
         data-autofocus
         aria-label="Close enlarged image"
-        className="absolute top-4 right-4 inline-flex h-12 w-12 items-center justify-center bg-ivory"
+        className="bg-ivory absolute top-4 right-4 inline-flex h-12 w-12 items-center justify-center"
       >
         <CloseIcon />
       </button>

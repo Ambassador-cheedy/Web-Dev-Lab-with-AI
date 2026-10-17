@@ -11,7 +11,10 @@ import { img } from './images';
 
 export const STANDARD_SIZES = ['XS', 'S', 'M', 'L', 'XL', 'XXL'] as const;
 
-function sizes(m: Partial<Record<Zone, number[]>>, labels: readonly string[] = STANDARD_SIZES): GarmentSize[] {
+function sizes(
+  m: Partial<Record<Zone, number[]>>,
+  labels: readonly string[] = STANDARD_SIZES,
+): GarmentSize[] {
   return labels.map((label, i) => ({
     label,
     measurements: Object.fromEntries(
@@ -20,7 +23,11 @@ function sizes(m: Partial<Record<Zone, number[]>>, labels: readonly string[] = S
   }));
 }
 
-const careSilk = ['Dry clean only', 'Cool iron on reverse', 'Store hanging, away from direct light'];
+const careSilk = [
+  'Dry clean only',
+  'Cool iron on reverse',
+  'Store hanging, away from direct light',
+];
 const careWool = ['Dry clean only', 'Steam to refresh', 'Brush gently after wear'];
 const careWash = ['Machine wash cold, delicate cycle', 'Dry flat', 'Warm iron'];
 
@@ -43,7 +50,12 @@ export const products: Product[] = [
       'Cut close through the bust and waist and released gently over the hip, the Adaeze falls in one clean line to mid-calf. A low back is finished with a hand-sewn hook and bar. It is the dress we reach for when the evening matters.',
     fabric: '100% double-faced wool crepe, fully lined in silk habotai. Woven in Biella, Italy.',
     care: careWool,
-    details: ['Fitted through bust and waist', 'Concealed back zip', 'Midi length', 'Unpadded, fully lined'],
+    details: [
+      'Fitted through bust and waist',
+      'Concealed back zip',
+      'Midi length',
+      'Unpadded, fully lined',
+    ],
     collections: ['harmattan', 'womenswear'],
     madeToMeasure: true,
     madeToMeasurePrice: 950,
@@ -388,7 +400,12 @@ export const products: Product[] = [
       'Our signature suit: a two-button, single-breasted jacket with a soft natural shoulder and gently suppressed waist, paired with flat-front trousers. Every jacket is half-canvassed and finished by hand.',
     fabric: 'Super 120s wool twill from a family mill in Huddersfield. Bemberg cupro lining.',
     care: careWool,
-    details: ['Half canvas', 'Natural shoulder', 'Two-button jacket, flat-front trousers', 'Working cuffs'],
+    details: [
+      'Half canvas',
+      'Natural shoulder',
+      'Two-button jacket, flat-front trousers',
+      'Working cuffs',
+    ],
     collections: ['menswear', 'harmattan'],
     madeToMeasure: true,
     madeToMeasurePrice: 2100,
@@ -524,9 +541,19 @@ export const products: Product[] = [
     tagline: 'A three-piece agbada with hand-embroidered chest panel.',
     description:
       'The Ugo is our ceremonial agbada: a sweeping outer robe over a fitted tunic and tapered sokoto trousers. The chest panel is embroidered by hand over five days. Made for weddings, chieftaincy and the days that are remembered.',
-    fabric: 'Cotton-silk damask outer robe; cotton tunic and sokoto. Hand embroidery in silk thread.',
-    care: ['Dry clean only', 'Store folded in the cotton bag provided', 'Steam embroidery from the reverse'],
-    details: ['Three pieces: agbada, tunic, sokoto', 'Hand-embroidered chest panel', 'Ankle length robe', 'Tapered sokoto'],
+    fabric:
+      'Cotton-silk damask outer robe; cotton tunic and sokoto. Hand embroidery in silk thread.',
+    care: [
+      'Dry clean only',
+      'Store folded in the cotton bag provided',
+      'Steam embroidery from the reverse',
+    ],
+    details: [
+      'Three pieces: agbada, tunic, sokoto',
+      'Hand-embroidered chest panel',
+      'Ankle length robe',
+      'Tapered sokoto',
+    ],
     collections: ['occasion', 'menswear'],
     madeToMeasure: true,
     madeToMeasurePrice: 2600,
@@ -569,7 +596,12 @@ export const products: Product[] = [
       'Heavy Irish linen, pre-washed for softness, with a relaxed seat and thigh and a wide straight leg. The half-elasticated waist and inner drawstring make them the trousers you pack first.',
     fabric: '100% Irish linen, 280gsm, stone washed.',
     care: careWash,
-    details: ['Relaxed fit', 'Half-elasticated waist with drawstring', 'Wide straight leg', 'Full length'],
+    details: [
+      'Relaxed fit',
+      'Half-elasticated waist with drawstring',
+      'Wide straight leg',
+      'Full length',
+    ],
     collections: ['menswear'],
     madeToMeasure: false,
     related: ['p-emeka', 'p-kene'],

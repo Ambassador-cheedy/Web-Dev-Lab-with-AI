@@ -50,7 +50,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="min-h-dvh">
         <a
           href="#main"
-          className="sr-only z-[70] bg-obsidian px-4 py-3 text-ivory focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
+          className="bg-obsidian text-ivory sr-only z-[70] px-4 py-3 focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
         >
           Skip to content
         </a>

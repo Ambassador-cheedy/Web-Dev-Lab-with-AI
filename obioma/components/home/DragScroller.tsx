@@ -4,7 +4,15 @@ import { useRef, type ReactNode } from 'react';
 import { cn } from '@/lib/utils';
 
 /** Horizontal scroller: native swipe on touch, click-and-drag with a mouse, arrow keys when focused. */
-export function DragScroller({ children, className, label }: { children: ReactNode; className?: string; label: string }) {
+export function DragScroller({
+  children,
+  className,
+  label,
+}: {
+  children: ReactNode;
+  className?: string;
+  label: string;
+}) {
   const ref = useRef<HTMLDivElement>(null);
   const drag = useRef<{ x: number; left: number; moved: boolean } | null>(null);
 
@@ -14,7 +22,10 @@ export function DragScroller({ children, className, label }: { children: ReactNo
       role="region"
       aria-label={label}
       tabIndex={0}
-      className={cn('no-scrollbar cursor-grab overflow-x-auto overscroll-x-contain active:cursor-grabbing', className)}
+      className={cn(
+        'no-scrollbar cursor-grab overflow-x-auto overscroll-x-contain active:cursor-grabbing',
+        className,
+      )}
       onPointerDown={(e) => {
         if (e.pointerType !== 'mouse' || !ref.current) return;
         drag.current = { x: e.clientX, left: ref.current.scrollLeft, moved: false };

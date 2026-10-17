@@ -6,9 +6,21 @@ import { cn } from '@/lib/utils';
  */
 export function Monogram({ className, title = 'Obioma' }: { className?: string; title?: string }) {
   return (
-    <svg viewBox="0 0 48 48" className={cn('h-8 w-8', className)} role="img" aria-label={title}>
+    <svg
+      viewBox="0 0 48 48"
+      className={cn('h-8 w-8', className)}
+      {...(title ? { role: 'img', 'aria-label': title } : { 'aria-hidden': true })}
+    >
       <circle cx="24" cy="24" r="21" fill="none" stroke="currentColor" strokeWidth="1.25" />
-      <ellipse cx="24" cy="24" rx="11.5" ry="15.5" fill="none" stroke="currentColor" strokeWidth="2.5" />
+      <ellipse
+        cx="24"
+        cy="24"
+        rx="11.5"
+        ry="15.5"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2.5"
+      />
       <ellipse
         cx="24"
         cy="24"

@@ -11,7 +11,10 @@ export function useProfileFit(product: Product) {
   const hydrated = useHydrated();
   const profile = useActiveProfile();
   const report = useMemo(
-    () => (hydrated && profile && product.fitStudio.enabled ? evaluateFit(profile, product.fitStudio) : null),
+    () =>
+      hydrated && profile && product.fitStudio.enabled
+        ? evaluateFit(profile, product.fitStudio)
+        : null,
     [hydrated, profile, product],
   );
   return { profile: hydrated ? profile : null, report };

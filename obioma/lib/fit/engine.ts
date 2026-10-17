@@ -57,7 +57,14 @@ function idealScore(ease: number, range: EaseRange) {
   return 100 - 4 * Math.min(1, Math.abs(ease - centre) / half);
 }
 
-function zoneScore(zone: Zone, status: ZoneStatus, ease: number, deviation: number, range: EaseRange, stretch: number) {
+function zoneScore(
+  zone: Zone,
+  status: ZoneStatus,
+  ease: number,
+  deviation: number,
+  range: EaseRange,
+  stretch: number,
+) {
   if (status === 'ideal') return idealScore(ease, range);
   return falloff(deviation, sigma(zone, status === 'tight' ? 'under' : 'over', stretch));
 }
@@ -75,7 +82,12 @@ export function zoneLabel(zone: Zone, status: ZoneStatus, deviation: number): st
   return ['relaxed', 'loose', 'too loose'][strength]!;
 }
 
-function effectiveRange(zone: Zone, range: EaseRange, stretch: number, bodyValue: number): EaseRange {
+function effectiveRange(
+  zone: Zone,
+  range: EaseRange,
+  stretch: number,
+  bodyValue: number,
+): EaseRange {
   if (!CIRCUMFERENCE.includes(zone) || stretch <= 0) return range;
   return { min: range.min - stretch * STRETCH_ALLOWANCE * bodyValue, max: range.max };
 }
@@ -174,7 +186,13 @@ export function evaluateFit(profile: BodyProfile, spec: FitSpec): FitReport {
   const body = resolveBody(profile);
   const sizes = spec.sizes.map((s) => evaluateSize(body, spec, s));
   if (!sizes.length) {
-    return { recommendedSize: '', bestScore: 0, sizes, suggestMadeToMeasure: true, summary: 'No sizes available.' };
+    return {
+      recommendedSize: '',
+      bestScore: 0,
+      sizes,
+      suggestMadeToMeasure: true,
+      summary: 'No sizes available.',
+    };
   }
   let best = sizes[0]!;
   for (const s of sizes) if (s.score > best.score) best = s;
@@ -183,7 +201,9 @@ export function evaluateFit(profile: BodyProfile, spec: FitSpec): FitReport {
   const runnerUp = neighbours.sort((a, b) => b.score - a.score)[0];
   const betweenSizes: [string, string] | undefined =
     runnerUp && best.score - runnerUp.score <= 6 && runnerUp.score >= MADE_TO_MEASURE_THRESHOLD
-      ? (sizes.indexOf(runnerUp) < idx ? [runnerUp.size, best.size] : [best.size, runnerUp.size])
+      ? sizes.indexOf(runnerUp) < idx
+        ? [runnerUp.size, best.size]
+        : [best.size, runnerUp.size]
       : undefined;
   const suggestMadeToMeasure = best.score < MADE_TO_MEASURE_THRESHOLD;
   return {
@@ -209,12 +229,18 @@ const ZONE_NAMES: Record<Zone, string> = {
 /** e.g. "ideal at bust and waist, slightly loose at hip" */
 export function describeSize(result: SizeResult, chestWord: 'bust' | 'chest' = 'bust'): string {
   const name = (z: Zone) => (z === 'bust' ? chestWord : ZONE_NAMES[z]);
-  const ideal = result.zones.filter((z) => z.status === 'ideal' && z.zone !== 'length').map((z) => name(z.zone));
+  const ideal = result.zones
+    .filter((z) => z.status === 'ideal' && z.zone !== 'length')
+    .map((z) => name(z.zone));
   const off = result.zones.filter((z) => z.status !== 'ideal');
   const parts: string[] = [];
   if (ideal.length) parts.push(`ideal at ${joinWords(ideal)}`);
   for (const z of off) {
-    parts.push(z.zone === 'length' || z.zone === 'sleeve' || z.zone === 'inseam' ? `${z.label} in the ${name(z.zone)}` : `${z.label} at the ${name(z.zone)}`);
+    parts.push(
+      z.zone === 'length' || z.zone === 'sleeve' || z.zone === 'inseam'
+        ? `${z.label} in the ${name(z.zone)}`
+        : `${z.label} at the ${name(z.zone)}`,
+    );
   }
   return parts.join(', ') || 'no fit data';
 }
@@ -226,7 +252,9 @@ function joinWords(words: string[]) {
 
 function summarise(best: SizeResult, mtm: boolean, between?: [string, string]): string {
   if (mtm) return 'No standard size fits you well. This piece would fit you best made to measure.';
-  const issues = best.zones.filter((z) => z.status !== 'ideal').sort((a, b) => b.deviation * b.weight - a.deviation * a.weight);
+  const issues = best.zones
+    .filter((z) => z.status !== 'ideal')
+    .sort((a, b) => b.deviation * b.weight - a.deviation * a.weight);
   const worst = issues[0];
   const note = worst
     ? `, ${worst.label} ${worst.zone === 'length' || worst.zone === 'sleeve' || worst.zone === 'inseam' ? 'in the' : 'at the'} ${ZONE_NAMES[worst.zone]}`
@@ -237,7 +265,9 @@ function summarise(best: SizeResult, mtm: boolean, between?: [string, string]): 
       : best.score >= 72
         ? `Size ${best.size} fits you well${note}`
         : `Size ${best.size} is your closest fit${note}`;
-  const tail = between ? `. You are between ${between[0]} and ${between[1]}: choose ${between[1]} for more ease.` : '.';
+  const tail = between
+    ? `. You are between ${between[0]} and ${between[1]}: choose ${between[1]} for more ease.`
+    : '.';
   return lead + tail;
 }
 

@@ -8,7 +8,15 @@ import { PENDING_ORDER_KEY } from '@/lib/payments/client';
 import { ButtonLink } from '@/components/ui/Button';
 import { Monogram } from '@/components/ui/Logo';
 
-export function OrderConfirmation({ reference, mock, email }: { reference: string; mock: boolean; email: string | null }) {
+export function OrderConfirmation({
+  reference,
+  mock,
+  email,
+}: {
+  reference: string;
+  mock: boolean;
+  email: string | null;
+}) {
   const hydrated = useHydrated();
   const done = useRef(false);
 
@@ -36,16 +44,20 @@ export function OrderConfirmation({ reference, mock, email }: { reference: strin
 
   return (
     <section className="container-luxe flex min-h-[70vh] flex-col items-center justify-center py-24 text-center">
-      <Monogram className="h-14 w-14 text-obsidian" />
-      <p className="eyebrow mt-10 text-stone-deep">Order {reference}</p>
-      <h1 className="mt-4 text-display font-light">Thank you.</h1>
-      <p className="mt-6 max-w-lg text-stone-deep">
-        Your order is with the atelier. {email ? `A confirmation is on its way to ${email}.` : 'A confirmation will follow by email.'} We
-        will write again when it is on its way to you.
+      <Monogram className="text-obsidian h-14 w-14" />
+      <p className="eyebrow text-stone-deep mt-10">Order {reference}</p>
+      <h1 className="text-display mt-4 font-light">Thank you.</h1>
+      <p className="text-stone-deep mt-6 max-w-lg">
+        Your order is with the atelier.{' '}
+        {email
+          ? `A confirmation is on its way to ${email}.`
+          : 'A confirmation will follow by email.'}{' '}
+        We will write again when it is on its way to you.
       </p>
       {mock && (
-        <p className="mt-6 max-w-lg border border-sand px-4 py-3 text-xs text-stone-deep">
-          Demo mode: no payment was taken. Add a Stripe test key (STRIPE_SECRET_KEY) to use Stripe Checkout.
+        <p className="border-sand text-stone-deep mt-6 max-w-lg border px-4 py-3 text-xs">
+          Demo mode: no payment was taken. Add a Stripe test key (STRIPE_SECRET_KEY) to use Stripe
+          Checkout.
         </p>
       )}
       <div className="mt-10 flex flex-col gap-3 sm:flex-row">

@@ -13,8 +13,12 @@ const FitStudio = dynamic(() => import('./FitStudio').then((m) => m.FitStudio), 
 
 export function StudioSkeleton() {
   return (
-    <div className="grid min-h-[70vh] place-items-center" aria-busy="true" aria-label="Loading the Fit Studio">
-      <div className="h-[60vh] w-48 animate-pulse rounded-full bg-bone" />
+    <div
+      className="grid min-h-[70vh] place-items-center"
+      aria-busy="true"
+      aria-label="Loading the Fit Studio"
+    >
+      <div className="bg-bone h-[60vh] w-48 animate-pulse rounded-full" />
     </div>
   );
 }

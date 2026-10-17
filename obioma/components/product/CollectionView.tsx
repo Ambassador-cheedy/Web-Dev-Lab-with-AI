@@ -70,12 +70,20 @@ export function CollectionView({
 
   return (
     <div>
-      <nav aria-label="Categories" className="no-scrollbar -mx-4 overflow-x-auto px-4 sm:mx-0 sm:px-0">
-        <ul className="flex min-w-max gap-6 border-b border-sand">
+      <nav
+        aria-label="Categories"
+        className="no-scrollbar -mx-4 overflow-x-auto px-4 sm:mx-0 sm:px-0"
+      >
+        <ul className="border-sand flex min-w-max gap-6 border-b">
           <li>
             <Link
               href="/collections"
-              className={cn('eyebrow inline-block py-4', !activeCategory ? 'border-b border-gold text-obsidian' : 'text-stone-deep hover:text-obsidian')}
+              className={cn(
+                'eyebrow inline-block py-4',
+                !activeCategory
+                  ? 'border-gold text-obsidian border-b'
+                  : 'text-stone-deep hover:text-obsidian',
+              )}
               aria-current={!activeCategory ? 'page' : undefined}
             >
               All
@@ -85,7 +93,12 @@ export function CollectionView({
             <li key={c}>
               <Link
                 href={`/collections/${c}`}
-                className={cn('eyebrow inline-block py-4', activeCategory === c ? 'border-b border-gold text-obsidian' : 'text-stone-deep hover:text-obsidian')}
+                className={cn(
+                  'eyebrow inline-block py-4',
+                  activeCategory === c
+                    ? 'border-gold text-obsidian border-b'
+                    : 'text-stone-deep hover:text-obsidian',
+                )}
                 aria-current={activeCategory === c ? 'page' : undefined}
               >
                 {CATEGORY_LABELS[c]}
@@ -104,9 +117,11 @@ export function CollectionView({
           className="eyebrow inline-flex min-h-11 items-center gap-2"
         >
           Filter {activeCount > 0 && <span className="text-gold">({activeCount})</span>}
-          <ChevronIcon className={cn('h-4 w-4 transition-transform duration-500', filtersOpen && 'rotate-180')} />
+          <ChevronIcon
+            className={cn('h-4 w-4 transition-transform duration-500', filtersOpen && 'rotate-180')}
+          />
         </button>
-        <p className="hidden text-sm text-stone-deep sm:block" aria-live="polite">
+        <p className="text-stone-deep hidden text-sm sm:block" aria-live="polite">
           {visible.length} {visible.length === 1 ? 'piece' : 'pieces'}
         </p>
         <label className="flex items-center gap-2">
@@ -114,7 +129,7 @@ export function CollectionView({
           <select
             value={sort}
             onChange={(e) => setSort(e.target.value as SortKey)}
-            className="min-h-11 border-0 bg-transparent pr-1 text-sm outline-none focus-visible:ring-2 focus-visible:ring-gold"
+            className="focus-visible:ring-gold min-h-11 border-0 bg-transparent pr-1 text-sm outline-none focus-visible:ring-2"
           >
             {SORTS.map((s) => (
               <option key={s.id} value={s.id}>
@@ -135,45 +150,76 @@ export function CollectionView({
             transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
             className="overflow-hidden"
           >
-            <div className="grid gap-8 border-y border-sand py-8 md:grid-cols-4">
+            <div className="border-sand grid gap-8 border-y py-8 md:grid-cols-4">
               <fieldset>
-                <legend className="eyebrow mb-3 text-stone-deep">Size</legend>
+                <legend className="eyebrow text-stone-deep mb-3">Size</legend>
                 <div className="flex flex-wrap gap-2">
                   {STANDARD_SIZES.map((s) => (
-                    <button key={s} type="button" aria-pressed={sizes.includes(s)} onClick={() => toggle(sizes, setSizes, s)} className={chip(sizes.includes(s))}>
+                    <button
+                      key={s}
+                      type="button"
+                      aria-pressed={sizes.includes(s)}
+                      onClick={() => toggle(sizes, setSizes, s)}
+                      className={chip(sizes.includes(s))}
+                    >
                       {s}
                     </button>
                   ))}
                 </div>
               </fieldset>
               <fieldset>
-                <legend className="eyebrow mb-3 text-stone-deep">Colour</legend>
+                <legend className="eyebrow text-stone-deep mb-3">Colour</legend>
                 <div className="flex flex-wrap gap-2">
                   {COLOUR_FAMILIES.map((c) => (
-                    <button key={c} type="button" aria-pressed={colours.includes(c)} onClick={() => toggle(colours, setColours, c)} className={cn(chip(colours.includes(c)), 'inline-flex items-center gap-2')}>
-                      <span aria-hidden="true" className="h-3 w-3 rounded-full border border-sand" style={{ background: FAMILY_SWATCH[c] }} />
+                    <button
+                      key={c}
+                      type="button"
+                      aria-pressed={colours.includes(c)}
+                      onClick={() => toggle(colours, setColours, c)}
+                      className={cn(chip(colours.includes(c)), 'inline-flex items-center gap-2')}
+                    >
+                      <span
+                        aria-hidden="true"
+                        className="border-sand h-3 w-3 rounded-full border"
+                        style={{ background: FAMILY_SWATCH[c] }}
+                      />
                       {c}
                     </button>
                   ))}
                 </div>
               </fieldset>
               <fieldset>
-                <legend className="eyebrow mb-3 text-stone-deep">Price</legend>
+                <legend className="eyebrow text-stone-deep mb-3">Price</legend>
                 <div className="flex flex-wrap gap-2">
                   {PRICE_BANDS.map((b) => (
-                    <button key={b.id} type="button" aria-pressed={price === b.id} onClick={() => setPrice(b.id)} className={chip(price === b.id)}>
+                    <button
+                      key={b.id}
+                      type="button"
+                      aria-pressed={price === b.id}
+                      onClick={() => setPrice(b.id)}
+                      className={chip(price === b.id)}
+                    >
                       {b.label}
                     </button>
                   ))}
                 </div>
               </fieldset>
               <fieldset>
-                <legend className="eyebrow mb-3 text-stone-deep">Fit Studio</legend>
-                <button type="button" aria-pressed={fitOnly} onClick={() => setFitOnly((v) => !v)} className={chip(fitOnly)}>
+                <legend className="eyebrow text-stone-deep mb-3">Fit Studio</legend>
+                <button
+                  type="button"
+                  aria-pressed={fitOnly}
+                  onClick={() => setFitOnly((v) => !v)}
+                  className={chip(fitOnly)}
+                >
                   Try-on enabled only
                 </button>
                 {activeCount > 0 && (
-                  <button type="button" onClick={clear} className="eyebrow mt-6 flex min-h-11 items-center gap-2 text-stone-deep hover:text-obsidian">
+                  <button
+                    type="button"
+                    onClick={clear}
+                    className="eyebrow text-stone-deep hover:text-obsidian mt-6 flex min-h-11 items-center gap-2"
+                  >
                     <CloseIcon className="h-4 w-4" /> Clear all
                   </button>
                 )}

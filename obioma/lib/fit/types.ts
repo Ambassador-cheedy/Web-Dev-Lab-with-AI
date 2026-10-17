@@ -8,15 +8,7 @@ export type Zone = 'shoulder' | 'bust' | 'waist' | 'hip' | 'length' | 'sleeve' |
 export const ZONES: Zone[] = ['shoulder', 'bust', 'waist', 'hip', 'length', 'sleeve', 'inseam'];
 
 export type GarmentType =
-  | 'dress'
-  | 'top'
-  | 'shirt'
-  | 'jacket'
-  | 'trousers'
-  | 'skirt'
-  | 'suit'
-  | 'agbada'
-  | 'kaftan';
+  'dress' | 'top' | 'shirt' | 'jacket' | 'trousers' | 'skirt' | 'suit' | 'agbada' | 'kaftan';
 
 export type FitStyle = 'fitted' | 'regular' | 'relaxed' | 'oversized';
 
@@ -68,7 +60,10 @@ export type BodyMeasurements = {
   upperArm?: number;
 };
 
-export type OptionalMeasurement = Exclude<keyof BodyMeasurements, 'height' | 'bust' | 'waist' | 'hip'>;
+export type OptionalMeasurement = Exclude<
+  keyof BodyMeasurements,
+  'height' | 'bust' | 'waist' | 'hip'
+>;
 
 export type BodyProfile = {
   base: BodyBase;

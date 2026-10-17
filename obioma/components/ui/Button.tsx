@@ -36,7 +36,10 @@ export function Arrow({ className }: { className?: string }) {
   return (
     <svg
       viewBox="0 0 24 8"
-      className={cn('h-2 w-6 transition-transform duration-500 ease-luxe group-hover:translate-x-1', className)}
+      className={cn(
+        'ease-luxe h-2 w-6 transition-transform duration-500 group-hover:translate-x-1',
+        className,
+      )}
       aria-hidden="true"
     >
       <path d="M0 4h22M18 0.5 22 4l-4 3.5" fill="none" stroke="currentColor" strokeWidth="1" />

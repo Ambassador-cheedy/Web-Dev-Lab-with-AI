@@ -1,12 +1,6 @@
 import type { BodyBase, FitSpec } from '@/lib/fit/types';
 
-export type Category =
-  | 'dresses'
-  | 'suits'
-  | 'tops'
-  | 'trousers'
-  | 'outerwear'
-  | 'occasion';
+export type Category = 'dresses' | 'suits' | 'tops' | 'trousers' | 'outerwear' | 'occasion';
 
 export type Colour = { name: string; hex: string };
 

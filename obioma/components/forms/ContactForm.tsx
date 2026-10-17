@@ -10,7 +10,10 @@ import { Field, inputClass } from './Field';
 export function ContactForm() {
   const [sent, setSent] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const { register, handleSubmit, formState } = useForm<ContactValues>({ resolver: zodResolver(contactSchema), defaultValues: { topic: 'Fit & sizing' } });
+  const { register, handleSubmit, formState } = useForm<ContactValues>({
+    resolver: zodResolver(contactSchema),
+    defaultValues: { topic: 'Fit & sizing' },
+  });
   if (sent)
     return (
       <p role="status" className="bg-bone p-8 font-serif text-2xl">
@@ -23,7 +26,11 @@ export function ContactForm() {
       className="space-y-6"
       onSubmit={handleSubmit(async (v) => {
         setError(null);
-        const res = await fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(v) }).catch(() => null);
+        const res = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(v),
+        }).catch(() => null);
         if (res?.ok) setSent(true);
         else setError('We could not send your message. Please try again or email us.');
       })}
@@ -46,7 +53,11 @@ export function ContactForm() {
       <Field label="Message" error={formState.errors.message?.message}>
         <textarea rows={6} className={`${inputClass} resize-y`} {...register('message')} />
       </Field>
-      {error && <p role="alert" className="text-sm text-fit-tight">{error}</p>}
+      {error && (
+        <p role="alert" className="text-fit-tight text-sm">
+          {error}
+        </p>
+      )}
       <Button type="submit" disabled={formState.isSubmitting}>
         Send message
       </Button>

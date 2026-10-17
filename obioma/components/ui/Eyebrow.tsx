@@ -11,7 +11,7 @@ export function Eyebrow({
 }) {
   return (
     <p className={cn('eyebrow flex items-center gap-3', className)}>
-      {rule && <span aria-hidden="true" className="h-px w-8 bg-gold" />}
+      {rule && <span aria-hidden="true" className="bg-gold h-px w-8" />}
       {children}
     </p>
   );

@@ -16,21 +16,21 @@ cp .env.example .env.local   # optional, see below
 npm run dev                  # http://localhost:3000
 ```
 
-| Script | What it does |
-|---|---|
-| `npm run dev` | Development server |
-| `npm run build` / `npm start` | Production build / serve |
-| `npm test` | Vitest unit tests (fit engine, units) |
-| `npm run lint` | ESLint (Next core-web-vitals + TypeScript) |
-| `npm run typecheck` | `tsc --noEmit` (strict) |
-| `npm run format` | Prettier (with Tailwind class sorting) |
+| Script                        | What it does                               |
+| ----------------------------- | ------------------------------------------ |
+| `npm run dev`                 | Development server                         |
+| `npm run build` / `npm start` | Production build / serve                   |
+| `npm test`                    | Vitest unit tests (fit engine, units)      |
+| `npm run lint`                | ESLint (Next core-web-vitals + TypeScript) |
+| `npm run typecheck`           | `tsc --noEmit` (strict)                    |
+| `npm run format`              | Prettier (with Tailwind class sorting)     |
 
 ### Environment variables
 
-| Variable | Required | Purpose |
-|---|---|---|
-| `STRIPE_SECRET_KEY` | No | Stripe **test** secret key (`sk_test_...`). Without it, checkout runs in mock mode and goes straight to the success page. |
-| `NEXT_PUBLIC_SITE_URL` | Recommended | Public URL, used for metadata, sitemap, JSON-LD and Stripe redirect URLs. Defaults to `http://localhost:3000`. |
+| Variable               | Required    | Purpose                                                                                                                   |
+| ---------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `STRIPE_SECRET_KEY`    | No          | Stripe **test** secret key (`sk_test_...`). Without it, checkout runs in mock mode and goes straight to the success page. |
+| `NEXT_PUBLIC_SITE_URL` | Recommended | Public URL, used for metadata, sitemap, JSON-LD and Stripe redirect URLs. Defaults to `http://localhost:3000`.            |
 
 Deploy to Vercel by importing the repository, setting the **root directory to `obioma`**,
 and adding the variables above.

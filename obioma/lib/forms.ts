@@ -1,6 +1,13 @@
 import { z } from 'zod';
 
-export const OCCASIONS = ['Wedding', 'Traditional ceremony', 'Evening event', 'Work', 'Everyday', 'Other'] as const;
+export const OCCASIONS = [
+  'Wedding',
+  'Traditional ceremony',
+  'Evening event',
+  'Work',
+  'Everyday',
+  'Other',
+] as const;
 export const TIME_SLOTS = ['10:00', '11:30', '13:00', '14:30', '16:00', '17:30'] as const;
 export const MAX_UPLOAD_BYTES = 5 * 1024 * 1024;
 export const UPLOAD_TYPES = ['image/jpeg', 'image/png', 'image/webp'];

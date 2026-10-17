@@ -27,7 +27,11 @@ const TABS = [
 ] as const;
 type TabId = (typeof TABS)[number]['id'];
 
-const dateFmt = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+const dateFmt = new Intl.DateTimeFormat('en-GB', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+});
 
 export function AccountView({ products }: { products: Product[] }) {
   const hydrated = useHydrated();
@@ -44,10 +48,14 @@ export function AccountView({ products }: { products: Product[] }) {
     <div className="grid gap-10 lg:grid-cols-[16rem_1fr] lg:gap-20">
       <aside className="min-w-0">
         {user ? (
-          <div className="border-b border-sand pb-6">
+          <div className="border-sand border-b pb-6">
             <p className="eyebrow text-stone-deep">Signed in as</p>
             <p className="mt-1 truncate">{user.name ?? user.email}</p>
-            <button type="button" onClick={() => signOut()} className="eyebrow link-luxe mt-3 min-h-10">
+            <button
+              type="button"
+              onClick={() => signOut()}
+              className="eyebrow link-luxe mt-3 min-h-10"
+            >
               Sign out
             </button>
           </div>
@@ -55,7 +63,11 @@ export function AccountView({ products }: { products: Product[] }) {
           <SignIn />
         )}
         <nav aria-label="Account sections" className="mt-6">
-          <ul role="tablist" aria-orientation="vertical" className="flex gap-1 overflow-x-auto lg:flex-col">
+          <ul
+            role="tablist"
+            aria-orientation="vertical"
+            className="flex gap-1 overflow-x-auto lg:flex-col"
+          >
             {TABS.map((t) => (
               <li key={t.id} role="presentation">
                 <button
@@ -67,7 +79,9 @@ export function AccountView({ products }: { products: Product[] }) {
                   onClick={() => setTab(t.id)}
                   className={cn(
                     'eyebrow min-h-11 w-full shrink-0 px-3 text-left whitespace-nowrap transition-colors lg:border-l',
-                    tab === t.id ? 'border-gold bg-bone text-obsidian' : 'border-transparent text-stone-deep hover:text-obsidian',
+                    tab === t.id
+                      ? 'border-gold bg-bone text-obsidian'
+                      : 'text-stone-deep hover:text-obsidian border-transparent',
                   )}
                 >
                   {t.label}
@@ -77,7 +91,12 @@ export function AccountView({ products }: { products: Product[] }) {
           </ul>
         </nav>
       </aside>
-      <section className="min-w-0" id={`acc-panel-${tab}`} role="tabpanel" aria-labelledby={`acc-tab-${tab}`}>
+      <section
+        className="min-w-0"
+        id={`acc-panel-${tab}`}
+        role="tabpanel"
+        aria-labelledby={`acc-tab-${tab}`}
+      >
         {tab === 'measurements' && <MeasurementsTab />}
         {tab === 'orders' && <OrdersTab />}
         {tab === 'wishlist' && <WishlistTab products={products} />}
@@ -89,12 +108,21 @@ export function AccountView({ products }: { products: Product[] }) {
 
 function SignIn() {
   const signIn = useAuth((s) => s.signIn);
-  const schema = z.object({ email: z.email('Please enter a valid email address'), name: z.string().optional() });
-  const { register, handleSubmit, formState } = useForm<z.infer<typeof schema>>({ resolver: zodResolver(schema) });
+  const schema = z.object({
+    email: z.email('Please enter a valid email address'),
+    name: z.string().optional(),
+  });
+  const { register, handleSubmit, formState } = useForm<z.infer<typeof schema>>({
+    resolver: zodResolver(schema),
+  });
   return (
-    <form onSubmit={handleSubmit((v) => signIn(v.email, v.name || undefined))} noValidate className="space-y-4 border-b border-sand pb-6">
+    <form
+      onSubmit={handleSubmit((v) => signIn(v.email, v.name || undefined))}
+      noValidate
+      className="border-sand space-y-4 border-b pb-6"
+    >
       <p className="font-serif text-2xl">Sign in</p>
-      <p className="text-xs text-stone-deep">Demo sign-in: email only, stored on this device.</p>
+      <p className="text-stone-deep text-xs">Demo sign-in: email only, stored on this device.</p>
       <Field label="Email" error={formState.errors.email?.message}>
         <input type="email" autoComplete="email" className={inputClass} {...register('email')} />
       </Field>
@@ -110,7 +138,7 @@ function SignIn() {
 
 function Empty({ children, cta }: { children: React.ReactNode; cta?: React.ReactNode }) {
   return (
-    <div className="border border-sand p-10 text-center">
+    <div className="border-sand border p-10 text-center">
       <p className="font-serif text-2xl italic">{children}</p>
       {cta && <div className="mt-6">{cta}</div>}
     </div>
@@ -135,52 +163,72 @@ function MeasurementsTab() {
         <h2 className="text-title font-light">My measurements</h2>
         <UnitToggle unit={unit} onChange={setUnit} />
       </div>
-      <p className="mt-2 max-w-xl text-sm text-stone-deep">
+      <p className="text-stone-deep mt-2 max-w-xl text-sm">
         {user
           ? 'Profiles saved while signed in are linked to your account.'
           : 'Your measurements stay on this device unless you save them to your account.'}
       </p>
       {profiles.length === 0 ? (
         <div className="mt-8">
-          <Empty cta={<ButtonLink href="/fit-studio">Open the Fit Studio</ButtonLink>}>No measurement profiles yet.</Empty>
+          <Empty cta={<ButtonLink href="/fit-studio">Open the Fit Studio</ButtonLink>}>
+            No measurement profiles yet.
+          </Empty>
         </div>
       ) : (
         <ul className="mt-8 grid gap-4 md:grid-cols-2">
           {profiles.map((p) => (
-            <li key={p.id} className={cn('border p-6', p.id === activeId ? 'border-gold' : 'border-sand')}>
+            <li
+              key={p.id}
+              className={cn('border p-6', p.id === activeId ? 'border-gold' : 'border-sand')}
+            >
               <div className="flex items-start justify-between gap-3">
                 <div>
                   <h3 className="font-serif text-2xl">{p.name}</h3>
-                  <p className="text-xs text-stone-deep">
-                    {p.base === 'womenswear' ? 'Womenswear' : 'Menswear'} · updated {dateFmt.format(new Date(p.updatedAt))}
+                  <p className="text-stone-deep text-xs">
+                    {p.base === 'womenswear' ? 'Womenswear' : 'Menswear'} · updated{' '}
+                    {dateFmt.format(new Date(p.updatedAt))}
                     {p.syncedToAccount ? ' · on account' : ' · this device'}
                   </p>
                 </div>
-                {p.id === activeId && <span className="eyebrow bg-obsidian px-2 py-1 text-[0.6rem] text-ivory">Active</span>}
+                {p.id === activeId && (
+                  <span className="eyebrow bg-obsidian text-ivory px-2 py-1 text-[0.6rem]">
+                    Active
+                  </span>
+                )}
               </div>
               <dl className="mt-4 grid grid-cols-3 gap-3 text-sm">
                 {(['height', 'bust', 'waist', 'hip', 'shoulder', 'inseam'] as const)
                   .filter((k) => p.measurements[k] != null)
                   .map((k) => (
                     <div key={k}>
-                      <dt className="text-xs text-stone-deep capitalize">{k === 'bust' && p.base === 'menswear' ? 'chest' : k}</dt>
+                      <dt className="text-stone-deep text-xs capitalize">
+                        {k === 'bust' && p.base === 'menswear' ? 'chest' : k}
+                      </dt>
                       <dd className="tabular-nums">{formatLength(p.measurements[k]!, unit)}</dd>
                     </div>
                   ))}
               </dl>
               <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2">
                 {p.id !== activeId && (
-                  <button type="button" onClick={() => setActive(p.id)} className="eyebrow link-luxe min-h-10">
+                  <button
+                    type="button"
+                    onClick={() => setActive(p.id)}
+                    className="eyebrow link-luxe min-h-10"
+                  >
                     Make active
                   </button>
                 )}
-                <Link href="/fit-studio" onClick={() => setActive(p.id)} className="eyebrow link-luxe inline-flex min-h-10 items-center">
+                <Link
+                  href="/fit-studio"
+                  onClick={() => setActive(p.id)}
+                  className="eyebrow link-luxe inline-flex min-h-10 items-center"
+                >
                   Edit in Fit Studio
                 </Link>
                 <button
                   type="button"
                   onClick={() => window.confirm(`Delete “${p.name}”?`) && remove(p.id)}
-                  className="eyebrow min-h-10 text-fit-tight"
+                  className="eyebrow text-fit-tight min-h-10"
                 >
                   Delete
                 </button>
@@ -192,24 +240,34 @@ function MeasurementsTab() {
       {profiles.length > 0 && (
         <button
           type="button"
-          onClick={() => window.confirm('Delete all measurement profiles from this device?') && removeAll()}
-          className="mt-6 min-h-10 text-sm text-fit-tight underline underline-offset-2"
+          onClick={() =>
+            window.confirm('Delete all measurement profiles from this device?') && removeAll()
+          }
+          className="text-fit-tight mt-6 min-h-10 text-sm underline underline-offset-2"
         >
           Delete my measurements
         </button>
       )}
       {looks.length > 0 && (
         <div className="mt-14">
-          <h3 className="eyebrow mb-3 text-stone-deep">Saved looks</h3>
-          <ul className="divide-y divide-sand border-y border-sand">
+          <h3 className="eyebrow text-stone-deep mb-3">Saved looks</h3>
+          <ul className="divide-sand border-sand divide-y border-y">
             {looks.map((l) => (
-              <li key={l.id} className="flex flex-wrap items-center justify-between gap-3 py-3 text-sm">
+              <li
+                key={l.id}
+                className="flex flex-wrap items-center justify-between gap-3 py-3 text-sm"
+              >
                 <Link href={`/fit-studio?product=${l.productSlug}`} className="link-luxe">
                   {l.productName} · {l.colour} · size {l.size}
                 </Link>
                 <span className="text-stone-deep">
                   {l.profileName} · fit {l.score}
-                  <button type="button" onClick={() => removeLook(l.id)} className="ml-4 text-fit-tight" aria-label={`Remove saved look ${l.productName}`}>
+                  <button
+                    type="button"
+                    onClick={() => removeLook(l.id)}
+                    className="text-fit-tight ml-4"
+                    aria-label={`Remove saved look ${l.productName}`}
+                  >
                     Remove
                   </button>
                 </span>
@@ -238,12 +296,12 @@ function OrdersTab() {
       <h2 className="text-title font-light">Orders</h2>
       <ul className="mt-8 space-y-4">
         {all.map((o) => (
-          <li key={o.id} className="border border-sand p-6">
+          <li key={o.id} className="border-sand border p-6">
             <div className="flex flex-wrap items-baseline justify-between gap-2">
               <p className="font-serif text-xl">Order {o.id}</p>
               <p className="eyebrow text-stone-deep">{o.status}</p>
             </div>
-            <p className="text-xs text-stone-deep">{dateFmt.format(new Date(o.createdAt))}</p>
+            <p className="text-stone-deep text-xs">{dateFmt.format(new Date(o.createdAt))}</p>
             <ul className="mt-4 space-y-1 text-sm">
               {o.lines.map((l, i) => (
                 <li key={i}>
@@ -255,7 +313,7 @@ function OrdersTab() {
           </li>
         ))}
       </ul>
-      <p className="mt-4 text-xs text-stone-deep">Order {MOCK_ORDER.id} is sample data.</p>
+      <p className="text-stone-deep mt-4 text-xs">Order {MOCK_ORDER.id} is sample data.</p>
     </div>
   );
 }
@@ -268,7 +326,15 @@ function WishlistTab({ products }: { products: Product[] }) {
       <h2 className="text-title font-light">Wishlist</h2>
       {items.length === 0 ? (
         <div className="mt-8">
-          <Empty cta={<ButtonLink href="/collections" variant="secondary">Explore the collection</ButtonLink>}>Nothing saved yet.</Empty>
+          <Empty
+            cta={
+              <ButtonLink href="/collections" variant="secondary">
+                Explore the collection
+              </ButtonLink>
+            }
+          >
+            Nothing saved yet.
+          </Empty>
         </div>
       ) : (
         <ul className="mt-8 grid grid-cols-2 gap-x-4 gap-y-10 md:grid-cols-3">
@@ -290,33 +356,42 @@ function RequestsTab() {
       <h2 className="text-title font-light">Made-to-measure requests</h2>
       {requests.length === 0 ? (
         <div className="mt-8">
-          <Empty cta={<ButtonLink href="/made-to-measure" variant="oxblood">Begin a request</ButtonLink>}>No requests yet.</Empty>
+          <Empty
+            cta={
+              <ButtonLink href="/made-to-measure" variant="oxblood">
+                Begin a request
+              </ButtonLink>
+            }
+          >
+            No requests yet.
+          </Empty>
         </div>
       ) : (
         <ul className="mt-8 space-y-4">
           {requests.map((r) => (
-            <li key={r.id} className="border border-sand p-6">
+            <li key={r.id} className="border-sand border p-6">
               <div className="flex flex-wrap items-baseline justify-between gap-2">
                 <p className="font-serif text-xl">{r.productName ?? 'A new piece'}</p>
                 <p className="eyebrow text-oxblood">{r.status}</p>
               </div>
-              <p className="text-xs text-stone-deep">
+              <p className="text-stone-deep text-xs">
                 {r.id} · {dateFmt.format(new Date(r.createdAt))}
               </p>
               <dl className="mt-4 grid gap-2 text-sm sm:grid-cols-3">
                 <div>
-                  <dt className="text-xs text-stone-deep">Occasion</dt>
+                  <dt className="text-stone-deep text-xs">Occasion</dt>
                   <dd>{r.occasion}</dd>
                 </div>
                 <div>
-                  <dt className="text-xs text-stone-deep">Profile</dt>
+                  <dt className="text-stone-deep text-xs">Profile</dt>
                   <dd>{r.profileName ?? 'To be measured'}</dd>
                 </div>
                 {r.consultation && (
                   <div>
-                    <dt className="text-xs text-stone-deep">Consultation</dt>
+                    <dt className="text-stone-deep text-xs">Consultation</dt>
                     <dd>
-                      {r.consultation.type === 'virtual' ? 'Virtual' : 'In person'}, {dateFmt.format(new Date(r.consultation.date))} at {r.consultation.time}
+                      {r.consultation.type === 'virtual' ? 'Virtual' : 'In person'},{' '}
+                      {dateFmt.format(new Date(r.consultation.date))} at {r.consultation.time}
                     </dd>
                   </div>
                 )}

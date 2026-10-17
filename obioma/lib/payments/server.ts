@@ -30,7 +30,9 @@ export async function createCheckoutSession(items: CheckoutItem[], origin: strin
       if (!product.colours.some((c) => c.name === item.colour)) throw new Error('Unknown colour');
       if (!item.madeToMeasure && !product.fitStudio.sizes.some((s) => s.label === item.size))
         throw new Error('Unknown size');
-      const unitAmount = item.madeToMeasure ? (product.madeToMeasurePrice ?? product.price) : product.price;
+      const unitAmount = item.madeToMeasure
+        ? (product.madeToMeasurePrice ?? product.price)
+        : product.price;
       return { product, item, unitAmount };
     }),
   );
@@ -69,5 +71,10 @@ export async function getCheckoutSession(id: string) {
   const client = getStripe();
   if (!client) return null;
   const s = await client.checkout.sessions.retrieve(id);
-  return { id: s.id, status: s.payment_status, total: (s.amount_total ?? 0) / 100, email: s.customer_details?.email ?? null };
+  return {
+    id: s.id,
+    status: s.payment_status,
+    total: (s.amount_total ?? 0) / 100,
+    email: s.customer_details?.email ?? null,
+  };
 }

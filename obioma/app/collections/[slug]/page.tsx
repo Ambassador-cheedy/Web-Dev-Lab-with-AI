@@ -31,6 +31,7 @@ export default async function CollectionPage({ params }: Props) {
         {collection.description}
       </PageIntro>
       <div className="container-luxe pb-24">
+        <h2 className="sr-only">Pieces</h2>
         <CollectionView products={products} activeCategory={collection.category} />
       </div>
     </>

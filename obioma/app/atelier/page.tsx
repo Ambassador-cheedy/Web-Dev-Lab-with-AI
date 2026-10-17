@@ -7,7 +7,8 @@ import { img } from '@/data/images';
 
 export const metadata: Metadata = {
   title: 'Atelier',
-  description: 'The story of Obioma: our founder, our design philosophy, craftsmanship, and how we source and make.',
+  description:
+    'The story of Obioma: our founder, our design philosophy, craftsmanship, and how we source and make.',
   alternates: { canonical: '/atelier' },
 };
 
@@ -58,21 +59,35 @@ const chapters = [
 export default function AtelierPage() {
   return (
     <>
-      <DarkHero image={img.workshop} alt="The Obioma workroom" eyebrow="The atelier" title="Made slowly, with care.">
+      <DarkHero
+        image={img.workshop}
+        alt="The Obioma workroom"
+        eyebrow="The atelier"
+        title="Made slowly, with care."
+      >
         The people, principles and places behind every Obioma piece.
       </DarkHero>
       <div className="container-luxe py-24 lg:py-36">
         {chapters.map((c, i) => (
-          <article key={c.title} className="grid items-center gap-12 border-b border-sand py-16 first:pt-0 last:border-0 lg:grid-cols-2 lg:gap-24 lg:py-24">
+          <article
+            key={c.title}
+            className="border-sand grid items-center gap-12 border-b py-16 first:pt-0 last:border-0 lg:grid-cols-2 lg:gap-24 lg:py-24"
+          >
             <MaskReveal className={`relative aspect-[4/5] ${i % 2 ? 'lg:order-2' : ''}`}>
-              <EditorialImage src={c.image} alt={c.alt} fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
+              <EditorialImage
+                src={c.image}
+                alt={c.alt}
+                fill
+                sizes="(min-width: 1024px) 50vw, 100vw"
+                className="object-cover"
+              />
             </MaskReveal>
             <Reveal>
-              <p className="eyebrow flex items-center gap-3 text-stone-deep">
-                <span aria-hidden="true" className="h-px w-8 bg-gold" /> {c.eyebrow}
+              <p className="eyebrow text-stone-deep flex items-center gap-3">
+                <span aria-hidden="true" className="bg-gold h-px w-8" /> {c.eyebrow}
               </p>
-              <h2 className="mt-5 text-title font-light">{c.title}</h2>
-              <div className="prose-luxe mt-6 max-w-lg leading-relaxed text-stone-deep">
+              <h2 className="text-title mt-5 font-light">{c.title}</h2>
+              <div className="prose-luxe text-stone-deep mt-6 max-w-lg leading-relaxed">
                 {c.body.map((p) => (
                   <p key={p}>{p}</p>
                 ))}
@@ -81,10 +96,16 @@ export default function AtelierPage() {
           </article>
         ))}
         <Reveal className="mx-auto max-w-2xl pt-12 text-center">
-          <p className="font-serif text-3xl leading-snug italic sm:text-4xl">“Clothes should be made for the person, not the other way round.”</p>
+          <p className="font-serif text-3xl leading-snug italic sm:text-4xl">
+            “Clothes should be made for the person, not the other way round.”
+          </p>
           <div className="mt-10 flex flex-col justify-center gap-3 sm:flex-row">
-            <ButtonLink href="/made-to-measure" variant="oxblood">Made to measure</ButtonLink>
-            <ButtonLink href="/fit-studio" variant="secondary">Try the Fit Studio</ButtonLink>
+            <ButtonLink href="/made-to-measure" variant="oxblood">
+              Made to measure
+            </ButtonLink>
+            <ButtonLink href="/fit-studio" variant="secondary">
+              Try the Fit Studio
+            </ButtonLink>
           </div>
         </Reveal>
       </div>

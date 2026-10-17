@@ -6,13 +6,19 @@
 export async function exportAvatarPng(svg: SVGSVGElement, caption: string, filename: string) {
   const styles = getComputedStyle(document.documentElement);
   const resolveVars = (s: string) =>
-    s.replace(/var\((--[\w-]+)\)/g, (_, name: string) => styles.getPropertyValue(name).trim() || 'currentColor');
+    s.replace(
+      /var\((--[\w-]+)\)/g,
+      (_, name: string) => styles.getPropertyValue(name).trim() || 'currentColor',
+    );
 
   const clone = svg.cloneNode(true) as SVGSVGElement;
   clone.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
   clone.setAttribute('width', '960');
   clone.setAttribute('height', '1640');
-  const markup = resolveVars(new XMLSerializer().serializeToString(clone)).replace(/mix-blend-mode:\s*multiply;?/g, '');
+  const markup = resolveVars(new XMLSerializer().serializeToString(clone)).replace(
+    /mix-blend-mode:\s*multiply;?/g,
+    '',
+  );
 
   const img = new Image();
   const url = URL.createObjectURL(new Blob([markup], { type: 'image/svg+xml;charset=utf-8' }));

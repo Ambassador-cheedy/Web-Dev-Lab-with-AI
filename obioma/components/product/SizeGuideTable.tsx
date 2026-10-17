@@ -24,7 +24,9 @@ export function SizeGuideTable({ product }: { product: Product }) {
   const sizes = product.fitStudio.sizes;
   const zones = ORDER.filter((z) => sizes.some((s) => s.measurements[z] != null));
   const lengthNote =
-    product.fitStudio.garmentType === 'skirt' ? 'Length is measured from the waist.' : 'Length is measured from the high point of the shoulder.';
+    product.fitStudio.garmentType === 'skirt'
+      ? 'Length is measured from the waist.'
+      : 'Length is measured from the high point of the shoulder.';
   return (
     <div>
       <div className="mb-4 flex items-center justify-between gap-4">
@@ -33,12 +35,16 @@ export function SizeGuideTable({ product }: { product: Product }) {
       </div>
       <div className="-mx-1 overflow-x-auto px-1">
         <table className="w-full min-w-[22rem] border-collapse text-left text-sm">
-          <caption className="sr-only">Garment measurements for {product.name} in {unit}</caption>
+          <caption className="sr-only">
+            Garment measurements for {product.name} in {unit}
+          </caption>
           <thead>
-            <tr className="border-b border-sand">
-              <th scope="col" className="py-2 pr-3 font-medium text-obsidian">Size</th>
+            <tr className="border-sand border-b">
+              <th scope="col" className="text-obsidian py-2 pr-3 font-medium">
+                Size
+              </th>
               {zones.map((z) => (
-                <th key={z} scope="col" className="py-2 pr-3 font-medium text-obsidian">
+                <th key={z} scope="col" className="text-obsidian py-2 pr-3 font-medium">
                   {ZONE_LABELS[z]}
                 </th>
               ))}
@@ -46,8 +52,10 @@ export function SizeGuideTable({ product }: { product: Product }) {
           </thead>
           <tbody>
             {sizes.map((s) => (
-              <tr key={s.label} className="border-b border-sand/60">
-                <th scope="row" className="py-2 pr-3 font-medium text-obsidian">{s.label}</th>
+              <tr key={s.label} className="border-sand/60 border-b">
+                <th scope="row" className="text-obsidian py-2 pr-3 font-medium">
+                  {s.label}
+                </th>
                 {zones.map((z) => (
                   <td key={z} className="py-2 pr-3 tabular-nums">
                     {s.measurements[z] != null ? toDisplay(s.measurements[z]!, unit) : '–'}
@@ -59,8 +67,8 @@ export function SizeGuideTable({ product }: { product: Product }) {
         </table>
       </div>
       <p className="mt-3 text-xs">
-        These are measurements of the finished garment, not body measurements. {zones.includes('length') && lengthNote} For a
-        personal recommendation, use the Fit Studio.
+        These are measurements of the finished garment, not body measurements.{' '}
+        {zones.includes('length') && lengthNote} For a personal recommendation, use the Fit Studio.
       </p>
     </div>
   );

@@ -22,8 +22,12 @@ export function filterProducts(list: Product[], filter: ProductFilter): Product[
     if (filter.fitStudioOnly && !p.fitStudio.enabled) return false;
     if (filter.minPrice != null && p.price < filter.minPrice) return false;
     if (filter.maxPrice != null && p.price > filter.maxPrice) return false;
-    if (filter.sizes?.length && !p.fitStudio.sizes.some((s) => filter.sizes!.includes(s.label))) return false;
-    if (filter.colours?.length && !p.colours.some((c) => filter.colours!.includes(colourFamily(c.name))))
+    if (filter.sizes?.length && !p.fitStudio.sizes.some((s) => filter.sizes!.includes(s.label)))
+      return false;
+    if (
+      filter.colours?.length &&
+      !p.colours.some((c) => filter.colours!.includes(colourFamily(c.name)))
+    )
       return false;
     return true;
   });
@@ -73,14 +77,27 @@ export async function getCollection(slug: string): Promise<Collection | undefine
 
 export async function getProductsForCollection(collection: Collection, filter: ProductFilter = {}) {
   return getProducts(
-    collection.category ? { ...filter, category: collection.category } : { ...filter, collection: collection.slug },
+    collection.category
+      ? { ...filter, category: collection.category }
+      : { ...filter, collection: collection.slug },
   );
 }
 
 /** Colour families used by the colour filter, so "Obsidian" and "Black" group together. */
 const FAMILIES: Record<string, string[]> = {
   Black: ['Obsidian', 'Black', 'Charcoal', 'Midnight', 'Ink', 'Navy'],
-  Neutral: ['Sand', 'Ivory', 'Ecru', 'Oat', 'Oatmeal', 'Natural', 'Stone', 'Champagne', 'White', 'Camel'],
+  Neutral: [
+    'Sand',
+    'Ivory',
+    'Ecru',
+    'Oat',
+    'Oatmeal',
+    'Natural',
+    'Stone',
+    'Champagne',
+    'White',
+    'Camel',
+  ],
   Red: ['Oxblood', 'Wine', 'Terracotta', 'Clay', 'Coral'],
   Green: ['Emerald', 'Forest', 'Olive'],
   Blue: ['Royal Blue', 'Pale Blue'],
@@ -116,7 +133,14 @@ export async function searchProducts(query: string, limit = 8): Promise<Product[
   if (!terms.length) return [];
   return products
     .filter((p) => {
-      const haystack = [p.name, p.tagline, p.category, CATEGORY_LABELS[p.category], p.line, ...p.colours.map((c) => c.name)]
+      const haystack = [
+        p.name,
+        p.tagline,
+        p.category,
+        CATEGORY_LABELS[p.category],
+        p.line,
+        ...p.colours.map((c) => c.name),
+      ]
         .join(' ')
         .toLowerCase();
       return terms.every((t) => haystack.includes(t));

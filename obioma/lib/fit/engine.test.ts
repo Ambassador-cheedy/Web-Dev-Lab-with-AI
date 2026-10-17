@@ -33,7 +33,11 @@ describe('fit engine', () => {
 
   it('flags a size that is too small as tight, with a falling score', () => {
     const body = resolveBody(womanM);
-    const xs = evaluateSize(body, spec('adaeze-column-dress'), spec('adaeze-column-dress').sizes[0]!);
+    const xs = evaluateSize(
+      body,
+      spec('adaeze-column-dress'),
+      spec('adaeze-column-dress').sizes[0]!,
+    );
     expect(zone(xs, 'bust').status).toBe('tight');
     expect(zone(xs, 'bust').ease).toBe(-6);
     expect(zone(xs, 'bust').label).toBe('too tight');
@@ -76,7 +80,10 @@ describe('fit engine', () => {
   });
 
   it('estimates missing optional measurements and down-weights them', () => {
-    const minimal: BodyProfile = { base: 'menswear', measurements: { height: 178, bust: 98, waist: 84, hip: 100 } };
+    const minimal: BodyProfile = {
+      base: 'menswear',
+      measurements: { height: 178, bust: 98, waist: 84, hip: 100 },
+    };
     const body = resolveBody(minimal);
     expect(body.estimated.shoulder).toBe(true);
     expect(body.m.shoulder).toBeCloseTo(45.9, 0);
@@ -93,7 +100,13 @@ describe('fit engine', () => {
 
   it('places hems relative to height', () => {
     const dress = spec('adaeze-column-dress');
-    const tall = evaluateFit({ base: 'womenswear', measurements: { ...womanM.measurements, height: 185, inseam: undefined, arm: undefined } }, dress);
+    const tall = evaluateFit(
+      {
+        base: 'womenswear',
+        measurements: { ...womanM.measurements, height: 185, inseam: undefined, arm: undefined },
+      },
+      dress,
+    );
     const m = tall.sizes.find((s) => s.size === 'M')!;
     // On a much taller body the midi dress rides up towards the knee.
     expect(zone(m, 'length').status).toBe('tight');

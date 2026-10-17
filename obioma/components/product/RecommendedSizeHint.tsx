@@ -8,12 +8,13 @@ export function RecommendedSizeHint({ product }: { product: Product }) {
   const { report } = useProfileFit(product);
   if (!report) return null;
   return (
-    <p className="text-xs text-stone-deep">
+    <p className="text-stone-deep text-xs">
       {report.suggestMadeToMeasure ? (
         <span className="text-oxblood">Best made to measure for you</span>
       ) : (
         <>
-          Your recommended size: <span className="font-semibold text-obsidian">{report.recommendedSize}</span>
+          Your recommended size:{' '}
+          <span className="text-obsidian font-semibold">{report.recommendedSize}</span>
         </>
       )}
     </p>

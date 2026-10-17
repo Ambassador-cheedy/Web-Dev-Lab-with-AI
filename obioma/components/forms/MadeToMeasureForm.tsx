@@ -5,7 +5,14 @@ import { useEffect, useState } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import type { Product } from '@/lib/catalog/types';
-import { madeToMeasureSchema, MAX_UPLOAD_BYTES, OCCASIONS, TIME_SLOTS, UPLOAD_TYPES, type MadeToMeasureValues } from '@/lib/forms';
+import {
+  madeToMeasureSchema,
+  MAX_UPLOAD_BYTES,
+  OCCASIONS,
+  TIME_SLOTS,
+  UPLOAD_TYPES,
+  type MadeToMeasureValues,
+} from '@/lib/forms';
 import { useMeasurements } from '@/lib/store/measurements';
 import { useOrders } from '@/lib/store/orders';
 import { useAuth } from '@/lib/auth';
@@ -17,7 +24,13 @@ import { Field, inputClass } from './Field';
 
 const today = () => new Date(Date.now() + 86400000).toISOString().slice(0, 10);
 
-export function MadeToMeasureForm({ products, initialSlug }: { products: Product[]; initialSlug?: string }) {
+export function MadeToMeasureForm({
+  products,
+  initialSlug,
+}: {
+  products: Product[];
+  initialSlug?: string;
+}) {
   const hydrated = useHydrated();
   const profiles = useMeasurements((s) => s.profiles);
   const activeId = useMeasurements((s) => s.activeId);
@@ -73,7 +86,8 @@ export function MadeToMeasureForm({ products, initialSlug }: { products: Product
   const onFile = (f: File | undefined) => {
     setFileError(null);
     if (!f) return setFile(null);
-    if (!UPLOAD_TYPES.includes(f.type)) return setFileError('Please choose a JPEG, PNG or WebP image.');
+    if (!UPLOAD_TYPES.includes(f.type))
+      return setFileError('Please choose a JPEG, PNG or WebP image.');
     if (f.size > MAX_UPLOAD_BYTES) return setFileError('Images must be under 5 MB.');
     setFile(f);
   };
@@ -111,10 +125,13 @@ export function MadeToMeasureForm({ products, initialSlug }: { products: Product
     return (
       <div role="status" className="bg-bone p-8 sm:p-12">
         <p className="eyebrow text-oxblood">Reference {done}</p>
-        <h2 className="mt-4 font-serif text-4xl font-light">Thank you. Your request is with our cutters.</h2>
-        <p className="mt-4 max-w-xl text-stone-deep">
+        <h2 className="mt-4 font-serif text-4xl font-light">
+          Thank you. Your request is with our cutters.
+        </h2>
+        <p className="text-stone-deep mt-4 max-w-xl">
           We will reply within two working days to confirm your measurements
-          {consultation !== 'none' ? ' and your consultation' : ''}. You can follow your request in your account.
+          {consultation !== 'none' ? ' and your consultation' : ''}. You can follow your request in
+          your account.
         </p>
         <ButtonLink href="/account?tab=requests" variant="secondary" className="mt-8">
           View my requests
@@ -124,13 +141,23 @@ export function MadeToMeasureForm({ products, initialSlug }: { products: Product
   }
 
   const radio = (active: boolean) =>
-    cn('flex min-h-12 flex-1 items-center justify-center border px-3 text-sm transition-colors', active ? 'border-obsidian bg-obsidian text-ivory' : 'border-sand hover:border-obsidian');
+    cn(
+      'flex min-h-12 flex-1 items-center justify-center border px-3 text-sm transition-colors',
+      active ? 'border-obsidian bg-obsidian text-ivory' : 'border-sand hover:border-obsidian',
+    );
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-10">
       <fieldset className="space-y-6">
         <legend className="mb-2 font-serif text-2xl">The piece</legend>
-        <Field label="Piece" hint={product?.madeToMeasurePrice ? `Made to measure from ${formatPrice(product.madeToMeasurePrice)}` : 'Or leave open and describe what you have in mind below'}>
+        <Field
+          label="Piece"
+          hint={
+            product?.madeToMeasurePrice
+              ? `Made to measure from ${formatPrice(product.madeToMeasurePrice)}`
+              : 'Or leave open and describe what you have in mind below'
+          }
+        >
           <select className={inputClass} {...register('productSlug')}>
             <option value="">Something new, to discuss</option>
             {products.map((p) => (
@@ -140,7 +167,11 @@ export function MadeToMeasureForm({ products, initialSlug }: { products: Product
             ))}
           </select>
         </Field>
-        <Field label="Fabric & colour notes" hint="Preferred cloth, colours, linings, details you love." error={errors.fabricNotes?.message}>
+        <Field
+          label="Fabric & colour notes"
+          hint="Preferred cloth, colours, linings, details you love."
+          error={errors.fabricNotes?.message}
+        >
           <textarea rows={4} className={cn(inputClass, 'resize-y')} {...register('fabricNotes')} />
         </Field>
         <div className="grid gap-6 sm:grid-cols-2">
@@ -162,16 +193,21 @@ export function MadeToMeasureForm({ products, initialSlug }: { products: Product
           <p className="eyebrow text-stone-deep" id="ref-label">
             Reference image (optional)
           </p>
-          <label className="mt-3 flex min-h-28 cursor-pointer items-center gap-5 border border-dashed border-sand p-4 hover:border-obsidian focus-within:ring-2 focus-within:ring-gold">
+          <label className="border-sand hover:border-obsidian focus-within:ring-gold mt-3 flex min-h-28 cursor-pointer items-center gap-5 border border-dashed p-4 focus-within:ring-2">
             {preview ? (
               // eslint-disable-next-line @next/next/no-img-element -- local object URL preview
               <img src={preview} alt="Your reference image" className="h-20 w-16 object-cover" />
             ) : (
-              <span aria-hidden="true" className="flex h-20 w-16 items-center justify-center bg-bone text-2xl text-stone">+</span>
+              <span
+                aria-hidden="true"
+                className="bg-bone text-stone flex h-20 w-16 items-center justify-center text-2xl"
+              >
+                +
+              </span>
             )}
             <span className="text-sm">
               {file ? file.name : 'Add an image of a silhouette, detail or fabric you like'}
-              <span className="block text-xs text-stone-deep">JPEG, PNG or WebP, up to 5 MB</span>
+              <span className="text-stone-deep block text-xs">JPEG, PNG or WebP, up to 5 MB</span>
             </span>
             <input
               type="file"
@@ -182,7 +218,7 @@ export function MadeToMeasureForm({ products, initialSlug }: { products: Product
             />
           </label>
           {fileError && (
-            <p role="alert" className="mt-1.5 text-sm text-fit-tight">
+            <p role="alert" className="text-fit-tight mt-1.5 text-sm">
               {fileError}
             </p>
           )}
@@ -203,20 +239,27 @@ export function MadeToMeasureForm({ products, initialSlug }: { products: Product
               </select>
             </Field>
             {profile && (
-              <dl className="grid grid-cols-2 gap-x-6 gap-y-2 bg-bone p-4 text-sm sm:grid-cols-4">
+              <dl className="bg-bone grid grid-cols-2 gap-x-6 gap-y-2 p-4 text-sm sm:grid-cols-4">
                 {(['height', 'bust', 'waist', 'hip', 'shoulder', 'arm', 'inseam'] as const)
                   .filter((k) => profile.measurements[k] != null)
                   .map((k) => (
                     <div key={k}>
-                      <dt className="text-xs text-stone-deep capitalize">{k === 'bust' && profile.base === 'menswear' ? 'chest' : k}</dt>
-                      <dd className="tabular-nums">{formatLength(profile.measurements[k]!, unit)}</dd>
+                      <dt className="text-stone-deep text-xs capitalize">
+                        {k === 'bust' && profile.base === 'menswear' ? 'chest' : k}
+                      </dt>
+                      <dd className="tabular-nums">
+                        {formatLength(profile.measurements[k]!, unit)}
+                      </dd>
                     </div>
                   ))}
               </dl>
             )}
-            <p className="text-xs text-stone-deep">
+            <p className="text-stone-deep text-xs">
               Need to adjust?{' '}
-              <Link href={`/fit-studio${productSlug ? `?product=${productSlug}` : ''}`} className="underline decoration-gold underline-offset-2">
+              <Link
+                href={`/fit-studio${productSlug ? `?product=${productSlug}` : ''}`}
+                className="decoration-gold underline underline-offset-2"
+              >
                 Edit in the Fit Studio
               </Link>
             </p>
@@ -224,7 +267,10 @@ export function MadeToMeasureForm({ products, initialSlug }: { products: Product
         ) : (
           <p className="bg-bone p-4 text-sm">
             No saved measurements yet.{' '}
-            <Link href={`/fit-studio${productSlug ? `?product=${productSlug}` : ''}`} className="underline decoration-gold underline-offset-2">
+            <Link
+              href={`/fit-studio${productSlug ? `?product=${productSlug}` : ''}`}
+              className="decoration-gold underline underline-offset-2"
+            >
               Add them in the Fit Studio
             </Link>{' '}
             (it takes two minutes), or book a consultation below and we will measure you.
@@ -234,7 +280,11 @@ export function MadeToMeasureForm({ products, initialSlug }: { products: Product
 
       <fieldset className="space-y-4">
         <legend className="mb-2 font-serif text-2xl">Fitting consultation</legend>
-        <div className="flex flex-col gap-2 sm:flex-row" role="radiogroup" aria-label="Consultation">
+        <div
+          className="flex flex-col gap-2 sm:flex-row"
+          role="radiogroup"
+          aria-label="Consultation"
+        >
           {(
             [
               ['none', 'Not needed'],
@@ -251,7 +301,12 @@ export function MadeToMeasureForm({ products, initialSlug }: { products: Product
         {consultation !== 'none' && (
           <div className="grid gap-6 sm:grid-cols-2">
             <Field label="Date" error={errors.consultDate?.message}>
-              <input type="date" min={today()} className={inputClass} {...register('consultDate')} />
+              <input
+                type="date"
+                min={today()}
+                className={inputClass}
+                {...register('consultDate')}
+              />
             </Field>
             <Field label="Time" error={errors.consultTime?.message}>
               <select className={inputClass} defaultValue="" {...register('consultTime')}>
@@ -274,22 +329,27 @@ export function MadeToMeasureForm({ products, initialSlug }: { products: Product
             <input autoComplete="name" className={inputClass} {...register('name')} />
           </Field>
           <Field label="Email" error={errors.email?.message}>
-            <input type="email" autoComplete="email" className={inputClass} {...register('email')} />
+            <input
+              type="email"
+              autoComplete="email"
+              className={inputClass}
+              {...register('email')}
+            />
           </Field>
         </div>
       </fieldset>
 
       {serverError && (
-        <p role="alert" className="text-sm text-fit-tight">
+        <p role="alert" className="text-fit-tight text-sm">
           {serverError}
         </p>
       )}
       <Button type="submit" variant="oxblood" disabled={isSubmitting} className="w-full sm:w-auto">
         {isSubmitting ? 'Sending…' : 'Send my request'}
       </Button>
-      <p className="text-xs text-stone-deep">
+      <p className="text-stone-deep text-xs">
         Your measurements are sent only with this request, and used only to make your piece. See our{' '}
-        <Link href="/privacy" className="underline decoration-gold underline-offset-2">
+        <Link href="/privacy" className="decoration-gold underline underline-offset-2">
           privacy policy
         </Link>
         .

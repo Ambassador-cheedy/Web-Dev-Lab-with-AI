@@ -49,7 +49,7 @@ export function MaskReveal({ children, className }: { children: ReactNode; class
       {!reduce && (
         <motion.div
           aria-hidden="true"
-          className="absolute inset-0 origin-top bg-bone"
+          className="bg-bone absolute inset-0 origin-top"
           initial={{ scaleY: 1 }}
           whileInView={{ scaleY: 0 }}
           viewport={{ once: true, margin: '0px 0px -10% 0px' }}

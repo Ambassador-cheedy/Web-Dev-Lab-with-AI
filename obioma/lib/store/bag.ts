@@ -49,7 +49,9 @@ export const useBag = create<BagState>()(
           lines:
             quantity <= 0
               ? s.lines.filter((l) => l.key !== key)
-              : s.lines.map((l) => (l.key === key ? { ...l, quantity: Math.min(quantity, 10) } : l)),
+              : s.lines.map((l) =>
+                  l.key === key ? { ...l, quantity: Math.min(quantity, 10) } : l,
+                ),
         })),
       remove: (key) => set((s) => ({ lines: s.lines.filter((l) => l.key !== key) })),
       clear: () => set({ lines: [] }),
@@ -66,4 +68,5 @@ export const useBag = create<BagState>()(
 );
 
 export const bagCount = (lines: BagLine[]) => lines.reduce((n, l) => n + l.quantity, 0);
-export const bagSubtotal = (lines: BagLine[]) => lines.reduce((n, l) => n + l.price * l.quantity, 0);
+export const bagSubtotal = (lines: BagLine[]) =>
+  lines.reduce((n, l) => n + l.price * l.quantity, 0);

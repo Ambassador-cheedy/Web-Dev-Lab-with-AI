@@ -8,7 +8,12 @@ import { useReducedMotion } from 'framer-motion';
  * changes (a different garment type, so different point counts) it snaps instead.
  * Runs one rAF loop and re-renders once per frame while moving.
  */
-export function useSpringArray(target: number[], topologyKey: string, stiffness = 210, damping = 26): number[] {
+export function useSpringArray(
+  target: number[],
+  topologyKey: string,
+  stiffness = 210,
+  damping = 26,
+): number[] {
   const reduce = useReducedMotion();
   const pos = useRef<number[]>(target);
   const vel = useRef<number[]>(target.map(() => 0));

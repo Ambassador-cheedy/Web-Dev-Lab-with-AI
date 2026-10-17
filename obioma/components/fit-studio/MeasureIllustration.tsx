@@ -22,7 +22,13 @@ const TAPES: Record<MeasurementKey, React.ReactNode> = {
   upperArm: <ellipse cx="77" cy="62" rx="6" ry="2.5" />,
 };
 
-export function MeasureIllustration({ field, className }: { field: MeasurementKey; className?: string }) {
+export function MeasureIllustration({
+  field,
+  className,
+}: {
+  field: MeasurementKey;
+  className?: string;
+}) {
   return (
     <svg viewBox="0 0 100 200" className={className} aria-hidden="true">
       <g fill="var(--color-bone)" stroke="var(--color-sand)" strokeWidth="1">

@@ -28,15 +28,21 @@ export function WishlistButton({
         toggle(productId);
       }}
       aria-pressed={active}
-      aria-label={withLabel ? undefined : `${active ? 'Remove' : 'Add'} ${productName} ${active ? 'from' : 'to'} wishlist`}
+      aria-label={
+        withLabel
+          ? undefined
+          : `${active ? 'Remove' : 'Add'} ${productName} ${active ? 'from' : 'to'} wishlist`
+      }
       className={cn(
-        'inline-flex min-h-11 min-w-11 items-center justify-center gap-2 transition-colors duration-500 hover:text-gold',
+        'hover:text-gold inline-flex min-h-11 min-w-11 items-center justify-center gap-2 transition-colors duration-500',
         active && 'text-oxblood',
         className,
       )}
     >
       <HeartIcon filled={active} />
-      {withLabel && <span className="eyebrow">{active ? 'Saved to wishlist' : 'Add to wishlist'}</span>}
+      {withLabel && (
+        <span className="eyebrow">{active ? 'Saved to wishlist' : 'Add to wishlist'}</span>
+      )}
     </button>
   );
 }

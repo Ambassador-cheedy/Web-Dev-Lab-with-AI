@@ -30,7 +30,9 @@ export function smoothPath(points: Pt[], closed = true, tension = 0.5): string {
 /** Straight polyline path. */
 export function linePath(points: Pt[], closed = false): string {
   if (!points.length) return '';
-  const d = points.map((pt, i) => `${i ? 'L' : 'M'}${pt[0].toFixed(2)},${pt[1].toFixed(2)}`).join(' ');
+  const d = points
+    .map((pt, i) => `${i ? 'L' : 'M'}${pt[0].toFixed(2)},${pt[1].toFixed(2)}`)
+    .join(' ');
   return closed ? `${d} Z` : d;
 }
 

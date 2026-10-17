@@ -19,9 +19,14 @@ export function Field({
   className?: string;
 }) {
   const id = useId();
-  const describedBy = [error && `${id}-err`, hint && `${id}-hint`].filter(Boolean).join(' ') || undefined;
+  const describedBy =
+    [error && `${id}-err`, hint && `${id}-hint`].filter(Boolean).join(' ') || undefined;
   const control = isValidElement(children)
-    ? cloneElement(children, { id, 'aria-invalid': !!error || undefined, 'aria-describedby': describedBy })
+    ? cloneElement(children, {
+        id,
+        'aria-invalid': !!error || undefined,
+        'aria-describedby': describedBy,
+      })
     : children;
   return (
     <div className={cn('block', className)}>
@@ -30,12 +35,12 @@ export function Field({
       </label>
       {control}
       {hint && !error && (
-        <p id={`${id}-hint`} className="mt-1.5 text-xs text-stone-deep">
+        <p id={`${id}-hint`} className="text-stone-deep mt-1.5 text-xs">
           {hint}
         </p>
       )}
       {error && (
-        <p id={`${id}-err`} role="alert" className="mt-1.5 text-sm text-fit-tight">
+        <p id={`${id}-err`} role="alert" className="text-fit-tight mt-1.5 text-sm">
           {error}
         </p>
       )}

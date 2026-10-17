@@ -8,31 +8,51 @@ const AvatarMorph = dynamic(() => import('./AvatarMorph').then((m) => m.AvatarMo
 });
 
 const steps = [
-  { n: '01', title: 'Enter your measurements', body: 'Four are enough to begin. Add more and the fit sharpens.' },
-  { n: '02', title: 'Choose a piece', body: 'Any piece marked for the Fit Studio, in any colour and size.' },
-  { n: '03', title: 'See your fit', body: 'Your avatar wears it. A fit report shows bust, waist, hip and hem, and recommends your size.' },
+  {
+    n: '01',
+    title: 'Enter your measurements',
+    body: 'Four are enough to begin. Add more and the fit sharpens.',
+  },
+  {
+    n: '02',
+    title: 'Choose a piece',
+    body: 'Any piece marked for the Fit Studio, in any colour and size.',
+  },
+  {
+    n: '03',
+    title: 'See your fit',
+    body: 'Your avatar wears it. A fit report shows bust, waist, hip and hem, and recommends your size.',
+  },
 ];
 
 export function FitTeaser({ product }: { product: Product }) {
   return (
-    <section aria-labelledby="fit-teaser-title" className="overflow-hidden bg-obsidian py-24 text-ivory lg:py-36">
+    <section
+      aria-labelledby="fit-teaser-title"
+      className="bg-obsidian text-ivory overflow-hidden py-24 lg:py-36"
+    >
       <div className="container-luxe grid items-center gap-16 lg:grid-cols-2 lg:gap-24">
         <div>
           <Reveal>
-            <p className="eyebrow flex items-center gap-3 text-gold-light">
-              <span aria-hidden="true" className="h-px w-8 bg-gold-light" /> The Fit Studio
+            <p className="eyebrow text-gold-light flex items-center gap-3">
+              <span aria-hidden="true" className="bg-gold-light h-px w-8" /> The Fit Studio
             </p>
-            <h2 id="fit-teaser-title" className="mt-6 text-display font-light">
+            <h2 id="fit-teaser-title" className="text-display mt-6 font-light">
               Try it on a body shaped like yours.
             </h2>
           </Reveal>
           <ol className="mt-12 space-y-8">
             {steps.map((s, i) => (
-              <Reveal as="li" key={s.n} delay={0.1 + i * 0.1} className="grid grid-cols-[3rem_1fr] gap-4 border-t border-ivory/15 pt-6">
-                <span className="font-serif text-2xl text-gold-light">{s.n}</span>
+              <Reveal
+                as="li"
+                key={s.n}
+                delay={0.1 + i * 0.1}
+                className="border-ivory/15 grid grid-cols-[3rem_1fr] gap-4 border-t pt-6"
+              >
+                <span className="text-gold-light font-serif text-2xl">{s.n}</span>
                 <div>
                   <h3 className="font-serif text-2xl">{s.title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-ivory/70">{s.body}</p>
+                  <p className="text-ivory/70 mt-2 text-sm leading-relaxed">{s.body}</p>
                 </div>
               </Reveal>
             ))}

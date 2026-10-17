@@ -54,7 +54,9 @@ export const useMeasurements = create<MeasurementState>()(
         set((s) => {
           const exists = s.profiles.some((p) => p.id === id);
           return {
-            profiles: exists ? s.profiles.map((p) => (p.id === id ? profile : p)) : [...s.profiles, profile],
+            profiles: exists
+              ? s.profiles.map((p) => (p.id === id ? profile : p))
+              : [...s.profiles, profile],
             activeId: id,
           };
         });
@@ -77,5 +79,7 @@ export const useMeasurements = create<MeasurementState>()(
 );
 
 export function useActiveProfile(): MeasurementProfile | null {
-  return useMeasurements((s) => s.profiles.find((p) => p.id === s.activeId) ?? s.profiles[0] ?? null);
+  return useMeasurements(
+    (s) => s.profiles.find((p) => p.id === s.activeId) ?? s.profiles[0] ?? null,
+  );
 }

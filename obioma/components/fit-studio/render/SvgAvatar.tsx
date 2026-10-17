@@ -42,18 +42,33 @@ export type SvgAvatarProps = {
   svgId?: string;
 };
 
-export function SvgAvatar({ body, product, size, colour, view, showHeatmap, className, svgId }: SvgAvatarProps) {
+export function SvgAvatar({
+  body,
+  product,
+  size,
+  colour,
+  view,
+  showHeatmap,
+  className,
+  svgId,
+}: SvgAvatarProps) {
   const uid = useId().replace(/:/g, '');
   const resolved = useMemo(() => resolveBody(body), [body]);
   const L = useMemo(() => getLandmarks(resolved), [resolved]);
 
-  const garmentSize = product?.fitStudio.sizes.find((s) => s.label === size) ?? product?.fitStudio.sizes[0] ?? null;
+  const garmentSize =
+    product?.fitStudio.sizes.find((s) => s.label === size) ?? product?.fitStudio.sizes[0] ?? null;
   const result: SizeResult | null = useMemo(
     () => (product && garmentSize ? evaluateSize(resolved, product.fitStudio, garmentSize) : null),
     [product, garmentSize, resolved],
   );
   const target = useMemo(
-    () => buildScene(resolved, L, product && garmentSize ? { spec: product.fitStudio, size: garmentSize, result } : null),
+    () =>
+      buildScene(
+        resolved,
+        L,
+        product && garmentSize ? { spec: product.fitStudio, size: garmentSize, result } : null,
+      ),
     [resolved, L, product, garmentSize, result],
   );
   const flat = useMemo(() => flattenScene(target), [target]);
@@ -61,7 +76,10 @@ export function SvgAvatar({ body, product, size, colour, view, showHeatmap, clas
   const scene = animated.length === flat.length ? unflattenScene(target, animated) : target;
 
   const skin = SKIN_TONES.find((t) => t.id === body.skinTone) ?? SKIN_TONES[3]!;
-  const colourHex = product?.colours.find((c) => c.name === colour)?.hex ?? product?.colours[0]?.hex ?? 'var(--color-stone)';
+  const colourHex =
+    product?.colours.find((c) => c.name === colour)?.hex ??
+    product?.colours[0]?.hex ??
+    'var(--color-stone)';
   const dark = luminance(colourHex) < 0.18;
   const lineColour = dark ? 'rgba(255,255,255,0.28)' : 'rgba(17,16,16,0.28)';
   const texture: Texture = product ? textureFor(product) : 'plain';
@@ -81,7 +99,9 @@ export function SvgAvatar({ body, product, size, colour, view, showHeatmap, clas
   const garmentLayer = product && shape('garment') && (
     <g>
       <path d={smoothPath(shape('garment')!)} fill={colourHex} />
-      {texture !== 'plain' && <path d={smoothPath(shape('garment')!)} fill={`url(#${id('tex')})`} />}
+      {texture !== 'plain' && (
+        <path d={smoothPath(shape('garment')!)} fill={`url(#${id('tex')})`} />
+      )}
       <path d={smoothPath(shape('garment')!)} fill={`url(#${id('shade')})`} />
     </g>
   );
@@ -114,7 +134,12 @@ export function SvgAvatar({ body, product, size, colour, view, showHeatmap, clas
   const backSeam: Pt[] | null =
     garmentOutline && view === 'back'
       ? [
-          [CX, scene.garmentType === 'trousers' || scene.garmentType === 'skirt' ? garmentOutline[0]![1] : scene.shapes.body![1]![1]],
+          [
+            CX,
+            scene.garmentType === 'trousers' || scene.garmentType === 'skirt'
+              ? garmentOutline[0]![1]
+              : scene.shapes.body![1]![1],
+          ],
           [CX, garmentOutline[garmentOutline.length / 2 - 1]![1] - 2],
         ]
       : null;
@@ -165,29 +190,68 @@ export function SvgAvatar({ body, product, size, colour, view, showHeatmap, clas
         ))}
         <clipPath id={id('clip-main')}>
           {shape('garment') && <path d={smoothPath(shape('garment')!)} />}
-          {shape('piece2') && scene.garmentType === 'suit' && <path d={smoothPath(shape('piece2')!)} />}
+          {shape('piece2') && scene.garmentType === 'suit' && (
+            <path d={smoothPath(shape('piece2')!)} />
+          )}
         </clipPath>
         <clipPath id={id('clip-sleeves')}>
           {hasSleeves && <path d={smoothPath(shape('sleeveR')!)} />}
           {hasSleeves && <path d={smoothPath(shape('sleeveL')!)} />}
         </clipPath>
-        <clipPath id={id('clip-legs')}>{shape('piece2') && <path d={smoothPath(shape('piece2')!)} />}</clipPath>
+        <clipPath id={id('clip-legs')}>
+          {shape('piece2') && <path d={smoothPath(shape('piece2')!)} />}
+        </clipPath>
       </defs>
 
       {/* Height rule */}
       <g aria-hidden="true">
-        <line x1="34" x2="34" y1={scene.heights.crown} y2={groundY} stroke="var(--color-sand)" strokeWidth="1" />
-        <line x1="28" x2="40" y1={scene.heights.crown} y2={scene.heights.crown} stroke="var(--color-gold)" strokeWidth="1" />
+        <line
+          x1="34"
+          x2="34"
+          y1={scene.heights.crown}
+          y2={groundY}
+          stroke="var(--color-sand)"
+          strokeWidth="1"
+        />
+        <line
+          x1="28"
+          x2="40"
+          y1={scene.heights.crown}
+          y2={scene.heights.crown}
+          stroke="var(--color-gold)"
+          strokeWidth="1"
+        />
         {Array.from({ length: Math.floor((groundY - scene.heights.crown) / 35.5) + 1 }, (_, i) => (
-          <line key={i} x1="34" x2={i % 5 === 0 ? 42 : 38} y1={groundY - i * 35.5} y2={groundY - i * 35.5} stroke="var(--color-sand)" strokeWidth="1" />
+          <line
+            key={i}
+            x1="34"
+            x2={i % 5 === 0 ? 42 : 38}
+            y1={groundY - i * 35.5}
+            y2={groundY - i * 35.5}
+            stroke="var(--color-sand)"
+            strokeWidth="1"
+          />
         ))}
       </g>
 
-      <ellipse cx={shape('shadow')![0]![0]} cy={groundY + 2} rx={shape('shadow')![1]![0]} ry={6} fill="var(--color-obsidian)" opacity="0.08" />
+      <ellipse
+        cx={shape('shadow')![0]![0]}
+        cy={groundY + 2}
+        rx={shape('shadow')![1]![0]}
+        ry={6}
+        fill="var(--color-obsidian)"
+        opacity="0.08"
+      />
 
       {/* Body */}
       <path d={smoothPath(shape('body')!)} fill={`url(#${id('skin')})`} />
-      <ellipse cx={shape('head')![0]![0]} cy={shape('head')![0]![1]} rx={shape('head')![1]![0]} ry={shape('head')![1]![1]} fill={`url(#${id('head')})`} />
+      <ellipse
+        cx={shape('head')![0]![0]}
+        cy={shape('head')![0]![1]}
+        rx={shape('head')![1]![0]}
+        ry={shape('head')![1]![1]}
+        fill={`url(#${id('head')})`}
+      />
       {view === 'back' && (
         <g aria-hidden="true">
           <ellipse
@@ -198,13 +262,31 @@ export function SvgAvatar({ body, product, size, colour, view, showHeatmap, clas
             fill={skin.shadow}
             opacity="0.55"
           />
-          {!product && <line x1={CX} x2={CX} y1={scene.shapes.body![1]![1]} y2={scene.shapes.body![7]![1]} stroke={skin.shadow} strokeWidth="1.2" />}
+          {!product && (
+            <line
+              x1={CX}
+              x2={CX}
+              y1={scene.shapes.body![1]![1]}
+              y2={scene.shapes.body![7]![1]}
+              stroke={skin.shadow}
+              strokeWidth="1.2"
+            />
+          )}
         </g>
       )}
 
-      {shape('base') && <path d={smoothPath(shape('base')!)} fill="var(--color-stone)" opacity="0.55" />}
+      {shape('base') && (
+        <path d={smoothPath(shape('base')!)} fill="var(--color-stone)" opacity="0.55" />
+      )}
       {piece2}
-      {shape('shirt') && <path d={smoothPath(shape('shirt')!)} fill="var(--color-white)" stroke="var(--color-sand)" strokeWidth="0.75" />}
+      {shape('shirt') && (
+        <path
+          d={smoothPath(shape('shirt')!)}
+          fill="var(--color-white)"
+          stroke="var(--color-sand)"
+          strokeWidth="0.75"
+        />
+      )}
       {scene.coversArms ? (
         <>
           {arms}
@@ -232,7 +314,16 @@ export function SvgAvatar({ body, product, size, colour, view, showHeatmap, clas
           ))}
         {backSeam && <path d={linePath(backSeam)} />}
         {view === 'front' &&
-          scene.buttons.map(([x, y], i) => <circle key={i} cx={x} cy={y} r="2.2" fill={dark ? 'rgba(255,255,255,0.35)' : 'rgba(17,16,16,0.35)'} stroke="none" />)}
+          scene.buttons.map(([x, y], i) => (
+            <circle
+              key={i}
+              cx={x}
+              cy={y}
+              r="2.2"
+              fill={dark ? 'rgba(255,255,255,0.35)' : 'rgba(17,16,16,0.35)'}
+              stroke="none"
+            />
+          ))}
       </g>
 
       {/* Drag lines and folds */}
@@ -302,7 +393,15 @@ function Heatmap({
           const tx = right ? VIEW_W - 6 : 6;
           return (
             <g key={`label-${b.zone}`}>
-              <line x1={ax} x2={right ? tx - 92 : tx + 92} y1={y} y2={y} stroke="var(--color-obsidian)" strokeOpacity="0.35" strokeWidth="0.75" />
+              <line
+                x1={ax}
+                x2={right ? tx - 92 : tx + 92}
+                y1={y}
+                y2={y}
+                stroke="var(--color-obsidian)"
+                strokeOpacity="0.35"
+                strokeWidth="0.75"
+              />
               <circle cx={ax} cy={y} r="2.5" fill={STATUS_VAR[s.status]} />
               <text
                 x={tx}
@@ -328,14 +427,28 @@ function TexturePattern({ id, texture, dark }: { id: string; texture: Texture; d
   switch (texture) {
     case 'twill':
       return (
-        <pattern id={id} width="4" height="4" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+        <pattern
+          id={id}
+          width="4"
+          height="4"
+          patternUnits="userSpaceOnUse"
+          patternTransform="rotate(45)"
+        >
           <line x1="0" y1="0" x2="0" y2="4" stroke={ink} strokeOpacity="0.07" strokeWidth="1.2" />
         </pattern>
       );
     case 'rib':
       return (
         <pattern id={id} width="3.2" height="10" patternUnits="userSpaceOnUse">
-          <line x1="0.8" y1="0" x2="0.8" y2="10" stroke={ink} strokeOpacity="0.12" strokeWidth="1.1" />
+          <line
+            x1="0.8"
+            y1="0"
+            x2="0.8"
+            y2="10"
+            stroke={ink}
+            strokeOpacity="0.12"
+            strokeWidth="1.1"
+          />
         </pattern>
       );
     case 'linen':
@@ -360,7 +473,13 @@ function TexturePattern({ id, texture, dark }: { id: string; texture: Texture; d
     case 'damask':
       return (
         <pattern id={id} width="16" height="16" patternUnits="userSpaceOnUse">
-          <path d="M8 2 L13 8 L8 14 L3 8 Z" fill="none" stroke={ink} strokeOpacity="0.08" strokeWidth="0.8" />
+          <path
+            d="M8 2 L13 8 L8 14 L3 8 Z"
+            fill="none"
+            stroke={ink}
+            strokeOpacity="0.08"
+            strokeWidth="0.8"
+          />
         </pattern>
       );
     case 'velvet':

@@ -9,16 +9,19 @@ export function AccordionItem({
   title,
   children,
   defaultOpen = false,
+  level = 3,
 }: {
   title: string;
   children: ReactNode;
   defaultOpen?: boolean;
+  level?: 2 | 3;
 }) {
+  const H = level === 2 ? 'h2' : 'h3';
   const [open, setOpen] = useState(defaultOpen);
   const id = useId();
   return (
-    <div className="border-b border-sand">
-      <h3 className="font-sans">
+    <div className="border-sand border-b">
+      <H className="font-sans">
         <button
           type="button"
           id={`${id}-btn`}
@@ -28,9 +31,14 @@ export function AccordionItem({
           className="flex min-h-14 w-full items-center justify-between gap-4 py-4 text-left"
         >
           <span className="eyebrow">{title}</span>
-          <PlusIcon className={cn('h-4 w-4 transition-transform duration-500 ease-luxe', open && 'rotate-45')} />
+          <PlusIcon
+            className={cn(
+              'ease-luxe h-4 w-4 transition-transform duration-500',
+              open && 'rotate-45',
+            )}
+          />
         </button>
-      </h3>
+      </H>
       <AnimatePresence initial={false}>
         {open && (
           <motion.div
@@ -43,7 +51,7 @@ export function AccordionItem({
             transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
             className="overflow-hidden"
           >
-            <div className="pb-6 text-sm leading-relaxed text-stone-deep">{children}</div>
+            <div className="text-stone-deep pb-6 text-sm leading-relaxed">{children}</div>
           </motion.div>
         )}
       </AnimatePresence>

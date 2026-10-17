@@ -5,13 +5,13 @@ how a 3D version replaces it without touching the fit engine or the Fit Studio U
 
 ## What stays the same
 
-| Layer | Location | v2 impact |
-|---|---|---|
-| Fit engine (ease, zone scores, size recommendation) | `lib/fit/` | None. Pure functions; the renderer only reads its output. |
-| Body model (resolved measurements, landmarks, hem positions) | `lib/fit/body.ts` | None. 3D uses the same landmark heights to drive bones and morphs. |
-| Product data (`fitStudio` spec, garment measurements per size) | `data/products.ts`, `lib/catalog` | Add optional `model3d` asset URLs per garment type. |
-| UI (measurement form, outfit picker, fit report, compare) | `components/fit-studio/*` | None, apart from choosing the renderer. |
-| Renderer contract | `components/fit-studio/render/types.ts` (`FitRenderer`) | v2 implements the same interface. |
+| Layer                                                          | Location                                                | v2 impact                                                          |
+| -------------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------------------ |
+| Fit engine (ease, zone scores, size recommendation)            | `lib/fit/`                                              | None. Pure functions; the renderer only reads its output.          |
+| Body model (resolved measurements, landmarks, hem positions)   | `lib/fit/body.ts`                                       | None. 3D uses the same landmark heights to drive bones and morphs. |
+| Product data (`fitStudio` spec, garment measurements per size) | `data/products.ts`, `lib/catalog`                       | Add optional `model3d` asset URLs per garment type.                |
+| UI (measurement form, outfit picker, fit report, compare)      | `components/fit-studio/*`                               | None, apart from choosing the renderer.                            |
+| Renderer contract                                              | `components/fit-studio/render/types.ts` (`FitRenderer`) | v2 implements the same interface.                                  |
 
 ```ts
 interface FitRenderer {

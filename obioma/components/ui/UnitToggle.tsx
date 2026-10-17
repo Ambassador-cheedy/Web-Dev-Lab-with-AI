@@ -15,7 +15,15 @@ export function UnitToggle({
   tone?: 'light' | 'dark';
 }) {
   return (
-    <div role="radiogroup" aria-label="Units" className={cn('inline-flex border', tone === 'dark' ? 'border-ivory/30' : 'border-sand', className)}>
+    <div
+      role="radiogroup"
+      aria-label="Units"
+      className={cn(
+        'inline-flex border',
+        tone === 'dark' ? 'border-ivory/30' : 'border-sand',
+        className,
+      )}
+    >
       {(['cm', 'in'] as const).map((u) => (
         <button
           key={u}
